@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset=utf-8>
+  <title>App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1.0, user-scalable=0"/>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="format-detection" content="telephone=no" />
+    <script src="data.js" type="text/javascript" charset="utf-8"></script>
+	<!-- Visualizer stuff -->
+	<script src="libs/visualizer/events.js"></script>
+
+	<!-- WebGL stuff -->
+	<script src="libs/visualizer/base.js"></script>
+	<script src="libs/visualizer/cameracontroller.js"></script>
+
+	<!-- TODO(kbr): remove this dependency -->
+	<script src="libs/visualizer/matrix4x4.js"></script>
+
+	<!-- Visualizer GL library -->
+	<script src="libs/visualizer/visualizer.js"></script>
+	<script src="libs/visualizer/shader.js"></script>
+  <script src="libs/circularbuffer.js"></script>
+  
+  
+<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="application.css" type="text/css" charset="utf-8">
+  <script src="application.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript" charset="utf-8">
+    var lang = 'et';
+    var jQuery  = require("jqueryify");
+    var exports = this;
+    jQuery(function(){
+      var App = require("index");
+      exports.app = new App({el: $("body"), data: app_data});      
+    });
+  </script>
+  
+</head>
+<body>
+</body>
+</html>

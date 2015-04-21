@@ -1,0 +1,71 @@
+@import './mixin'
+
+body
+  font-family: Montserrat, Helvetica Neue, Helvetica, Arial, sans-serif
+  overflow: hidden
+  -webkit-user-select: none
+  margin: 0; padding: 0
+  color: white
+  background: #009688
+
+* 
+  -webkit-tap-highlight-color: rgba(0,0,0,0)
+
+for num in (1 2 3 4 5 6 7 8 9 10) {
+    font_size = num / 10
+    page_width = num * 192
+    page_height = num * 108
+	@media only screen and (min-height: page_height px) and (min-width: page_width px) {
+        body {
+            font-size: font_size em;
+        }
+    }    
+}
+
+
+body.stage 
+  > header
+    display: block
+    
+  > article
+    bottom: 5em
+    
+  > footer
+    height: 5em
+    
+    background: #00796b
+    
+.panel
+  > header
+    height: 40px
+    line-height: 40px
+    
+    h2
+      margin: 0
+      padding: 0
+      text-align: center
+      color: #fffeff
+      text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5)
+      font-weight: normal
+    
+    button
+      position: absolute
+      left: 0
+      top: 0
+      
+      color: #FFF
+      text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5)
+      font-size: 13px
+    
+      background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.3)), color-stop(0.5, rgba(255, 255, 255, 0.1)), color-stop(0.5, rgba(255, 255, 255, 0))), #476b9d
+      
+      -webkit-box-shadow: inset 0 -1px 1px rgba(0, 0, 0, 0.3), inset 0 1px 1px 0 rgba(0, 0, 0, 0.6), 0 1px 0 rgba(255, 255, 255, 0.4)
+      
+      margin: 7px
+      padding: 5px 12px
+      border: 0
+      border-radius(5px)
+      
+      &:active
+        -webkit-box-shadow: inset 0 -1px 1px rgba(0, 0, 0, 0.3), inset 0 1px 1px 0 rgba(0, 0, 0, 0.6), 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 0 20px rgba(255, 255, 255, 0.2)
+        

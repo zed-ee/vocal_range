@@ -1,0 +1,14 @@
+{
+  "name": "app",
+  "version": "0.0.1",
+  "dependencies": {
+    "async": "^0.9.0",
+    "es5-shimify": "~2.0.5",
+    "gfx": "~0.0.4",
+    "jqueryify": "~1.8.3",
+    "json2ify": "~0.0.3",
+    "serveup": "~0.0.5",
+    "spine": "~1.0.9",
+    "spine.mobile": "~1.0.0"
+  }
+}

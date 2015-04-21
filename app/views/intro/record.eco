@@ -1,0 +1,27 @@
+<h1>85Hz</h1>
+<section class="progress">
+<ol class="retries">
+  <li>katse</li>
+  <li>katse</li>
+  <li>katse</li>
+</ol>
+
+<ul class="results">
+  <li></li>
+  <li></li>
+  <li></li>
+</ul>
+
+<ol class="countdown">
+  <li>3</li>
+  <li>2</li>
+  <li>1</li>
+</ol>
+</section>
+<section class="timer">
+<div class="radial-timer s-animate">
+  <div class="radial-timer-half"></div>
+  <div class="radial-timer-half"></div>
+</div>
+<div class="counter">15</div>
+</section>

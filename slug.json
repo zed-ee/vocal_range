@@ -1,0 +1,40 @@
+{
+  "routes": [
+    { ""        : "./public" },
+    { "/test"    : "./test/public" }
+  ],
+  "dependencies": [
+    "es5-shimify", 
+    "json2ify", 
+    "jqueryify", 
+    "gfx",
+    "spine"
+  ],
+  "libs": [],
+  "packages": {
+    "appName": {
+
+      "libs"    : [
+      ],
+      "modules" : [
+        "spine",
+        "spine/lib/local",
+        "spine/lib/route",
+        "spine/lib/manager",
+        "spine/lib/ajax",
+        "spine.mobile",
+        "es5-shimify",
+        "gfx",
+        "jqueryify",
+        "json2ify",
+        "async"
+      ],
+      "paths"  : ["./app"],
+      "target" : "./public/application.js"
+    },
+    "css": {
+      "paths"  : "./css",
+      "target" : "./public/application.css"
+    }
+  }  
+}

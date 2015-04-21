@@ -1,0 +1,67 @@
+
+
+.radial-timer {
+
+  
+  overflow: hidden;
+  height: 8em;
+  width: 8em;
+  position: relative;
+  
+  .radial-timer-half {
+    height: 8em;
+    width: 4em;
+    border-radius: 4em 0 0 4em;
+    background: #80cbc4;
+    position: absolute;
+    &:nth-of-type(2) {
+      z-index: 999;
+      -webkit-transform-origin: center right;
+      -webkit-transform: rotate(180deg);
+    }
+    
+    &:before {
+      content: "";
+      position: absolute;
+      top: 0.8em;
+      left: 0.8em;
+      height: 6.4em;
+      width: 3.6em;
+      border-radius: 3.5em 0 0 3.5em;
+      background: #009688;
+    }
+    &:after {
+      content: "";
+      position: absolute;
+      background: #009688;
+      height: 16em;
+      width: 12em;
+      left: -8em;
+      top: -4em;
+      -webkit-transform-origin: center right;
+    }
+  }
+  
+  &.s-animate {
+    -webkit-transform-origin: center right;
+    .radial-timer-half:nth-of-type(1):after {
+      -webkit-animation: rotateLeftMask 15s  linear;
+    }
+    .radial-timer-half:nth-of-type(2):after {
+      -webkit-animation: rotateRightMask 15s  linear;
+    }
+  }
+}
+
+// Animations
+
+@-webkit-keyframes rotateLeftMask {
+  0%   { -webkit-transform: rotate(0deg); }
+  50%   { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(180deg); }
+}
+@-webkit-keyframes rotateRightMask {
+  0%   { -webkit-transform: rotate(0deg); }
+  50%   { -webkit-transform: rotate(180deg); visibility: hidden; }
+  100% { -webkit-transform: rotate(180deg); visibility: hidden; }
+}

@@ -1,0 +1,21 @@
+<h1 class="status">Tulemused:</h1>
+<results>
+  <dl class="">
+    <dt>Maailma kõrgeim hääl:</dt> 
+    <dd>25087 Hz / G10</dd>
+    <dt>Maailma madalaim hääl:</dt> 
+    <dd>0,189 Hz / G<sub>-7</sub><br></dd>
+    <dt>Sinu kõrgeim hääl:</dt> 
+    <dd><%= @params.high %> Hz / E8</dd>
+    <dt>Sinu madalaim hääl:</dt> 
+    <dd><%= @params.low %> Hz / E8</dd>
+  </dl>
+  <div class="piano">
+    <div class="window">
+    </div>
+  </div>
+</results>
+<aside>
+  <div class="link">Alusta uuesti</div>
+  <div class="button">Saada e-postile</div>
+<aside>

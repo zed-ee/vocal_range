@@ -1,0 +1,4 @@
+<h1><%- app_data.messages[lang][@page][@mode] %></h1>
+<section>
+<div class="button"><%- app_data.messages[lang].intro.button %></div>
+</section>

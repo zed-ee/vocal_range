@@ -1,0 +1,10 @@
+<section>
+        <img src="<%=app_data.assets[@mode].image %>">
+        <%- app_data.messages[lang].play[@mode] %>
+<audio>
+  <source src="<%=app_data.assets[@mode].sound %>" type="audio/mpeg">
+</audio>
+<div class="progress">
+  <span class="indicator" style="width: 50%;"></span>
+</div>
+</section>

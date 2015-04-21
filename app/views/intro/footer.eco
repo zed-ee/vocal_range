@@ -1,0 +1,28 @@
+        <div class="restart">Algusesse</div>
+        <div class="set_lang">ENG</div>
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="progress">
+          <g class="page intro">
+            <circle cx="0.6em" cy="2.5em" r="0.5em" style="stroke:#009688;stroke-width: 0.1em;fill:#00796b"></circle>
+            <circle cx="0.6em" cy="2.5em" r="0.25em" style="stroke:#009688;fill:#009688"></circle>
+          </g>
+          <g class="page intro intro_low">
+            <circle cx="6.8em" cy="2.5em" r="0.5em" style="stroke:#009688;stroke-width: 0.1em;fill:#00796b"></circle>
+            <circle cx="6.8em" cy="2.5em" r="0.25em" style="stroke:#009688;fill:#009688"></circle>
+          </g>
+          <g class="page intro intro_low">
+            <circle cx="13em" cy="2.5em" r="0.5em" style="stroke:#009688;stroke-width: 0.1em;fill:#00796b"></circle>
+            <circle cx="13em" cy="2.5em" r="0.25em" style="stroke:#009688;fill:#009688"></circle>
+          </g>
+          <g class="page intro intro_low">
+            <circle cx="19.2em" cy="2.5em" r="0.5em" style="stroke:#009688;stroke-width: 0.1em;fill:#00796b"></circle>
+            <circle cx="19.2em" cy="2.5em" r="0.25em" style="stroke:#009688;fill:#009688"></circle>
+          </g>
+          <g class="page intro intro_low">
+            <circle cx="25.4em" cy="2.5em" r="0.5em" style="stroke:#009688;stroke-width: 0.1em;fill:#00796b"></circle>
+            <circle cx="25.4em" cy="2.5em" r="0.25em" style="stroke:#009688;fill:#009688"></circle>
+          </g>
+          <g class="page intro intro_low">
+            <circle cx="31.6em" cy="2.5em" r="0.5em" style="stroke:#009688;stroke-width: 0.1em;fill:#00796b"></circle>
+            <circle cx="31.6em" cy="2.5em" r="0.25em" style="stroke:#009688;fill:#009688"></circle>
+          </g>
+        </svg>
