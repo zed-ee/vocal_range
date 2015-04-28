@@ -70,6 +70,6 @@ class App extends Stage.Global
       '/results': (params) => @Results.active( 'low': @RecordLow.result, 'high': @RecordHigh.result)
       '/email_form': (params) -> @EmailForm.active(params)
     @footer.html require('views/intro/footer')
-    #@navigate('/results', trans: 'right')
+    @navigate('/results', trans: 'right')
        
 module.exports = App

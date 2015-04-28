@@ -23,9 +23,11 @@ class Mic
     #@analyserView1.setAnalysisType(ANALYSISTYPE_FREQUENCY)
 
     window.requestAnimationFrame = window.webkitRequestAnimationFrame if (!window.requestAnimationFrame)
+    MediaStreamTrack.getSources(@gotSources);
     
-    @getUserMedia(
-    	{
+  gotSources: (sources)=>
+    console.log(sources)
+    constraints = {
             "audio": {
                 "mandatory": {
                     "googEchoCancellation": "false",
@@ -34,8 +36,18 @@ class Mic
                     "googHighpassFilter": "false"
                 },
                 "optional": []
-            },
-        }, @gotStream)
+            }
+        }
+    sourceId = localStorage.getItem("sourceId")
+    if sourceId
+      for source in sources
+        if source.label == sourceId
+          constraints.audio.optional.push({sourceId: source.id})
+          break
+        
+    console.log constraints
+      
+    @getUserMedia(constraints, @gotStream)
        
   enable:(el, mode) ->
     console.log "mic, enable",el, mode
@@ -107,7 +119,11 @@ class Mic
     
 
     @rafID = window.requestAnimationFrame(@updatePitch);
-    @pitchEl.html(@pitch + "Hz") if @pitchEl
+    if @pitchEl
+      if @pitch > 0 && @pitch  < 30000 
+        @pitchEl.html(@pitch + " Hz")
+      else 
+        @pitchEl.html("- Hz") 
     
     
   autoCorrelate: (buf, sampleRate) ->

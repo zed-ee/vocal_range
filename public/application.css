@@ -230,6 +230,7 @@ body >header#view1 {
   -moz-border-radius: 6px;
   -webkit-border-radius: 6px;
   border-radius: 6px;
+  display: none;
 }
 .play .progress .indicator {
   -moz-border-radius: 5px;
@@ -396,6 +397,7 @@ body >header#view1 {
   -webkit-box-shadow: 0 0.4em #00897b;
   box-shadow: 0 0.4em #00897b;
   background: #4db6ac;
+  display: none;
 }
 footer {
   font-family: "Montserrat";
@@ -411,6 +413,7 @@ footer .restart {
 footer .set_lang {
   float: right;
   margin: 1.9em 6.7em;
+  display: none;
 }
 footer .progress {
   display: block;
@@ -469,10 +472,10 @@ footer .progress .page {
   -webkit-transform-origin: center right;
 }
 .radial-timer.s-animate .radial-timer-half:nth-of-type(1):after {
-  -webkit-animation: rotateLeftMask 15s linear;
+  -webkit-animation: rotateLeftMask 10s linear;
 }
 .radial-timer.s-animate .radial-timer-half:nth-of-type(2):after {
-  -webkit-animation: rotateRightMask 15s linear;
+  -webkit-animation: rotateRightMask 10s linear;
 }
 @-webkit-keyframes rotateLeftMask {
   0% {

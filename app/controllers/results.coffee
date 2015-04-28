@@ -7,7 +7,7 @@ class Results extends Panel
     
   events:
     'tap .link': 'restart'   
-    'tap .buton': 'next'   
+    'tap .button': 'next'   
     
   constructor: ->
     super

@@ -11,7 +11,10 @@ class Intro extends Panel
     super
 
     @render()
-  
+
+#  active:->
+#    @render
+    
   render: =>
     # Calculate currency conversion
     @html require('views/intro/index')(@)

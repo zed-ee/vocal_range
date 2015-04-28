@@ -6,7 +6,7 @@ class IntroHigh extends Panel
     'intro_low'
     
   events:
-    'tap .button': 'next'   
+    'click .button': 'next'   
     
   constructor: ->
     super

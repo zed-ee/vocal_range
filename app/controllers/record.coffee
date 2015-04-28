@@ -74,7 +74,7 @@ class Record extends Panel
       ,(callback) =>
           $(".timer").show()
           @app.mic.enable($(".record h1"), @mode);
-          async.eachSeries([15..1]
+          async.eachSeries([10..1]
             ,(i, cb) ->
               $(".timer .counter").html(i);
               console.log(Date(), "tack",i )

@@ -16,10 +16,6 @@ class PlayLow extends Panel
     super
     @render()
     
-  active: =>
-    @log("active", @mode)
-    super
-    @render()
   
   render: =>
     # Calculate currency conversion
@@ -28,14 +24,16 @@ class PlayLow extends Panel
   active: =>
     super
     setTimeout ( =>
-      $("audio", @el)[0].play()
+      @audio[0].currentTime =0
+      @audio[0].play()
       setTimeout ( =>
-        $("audio", @el)[0].pause()
+        @audio[0].pause()
         @next()
-        ), 7000
+        ), 6500
     ), 200
     
   next: ->
      @log('/intro2_'+@mode)
      @navigate('/intro2_'+@mode, trans: 'right')
+     
 module.exports = PlayLow

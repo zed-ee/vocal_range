@@ -23837,8 +23837,8 @@ if (typeof JSON !== 'object') {
     }
 
 }());
-}, "controllers/results": function(exports, require, module) {(function() {
-  var Panel, Results, Spine,
+}, "controllers/email": function(exports, require, module) {(function() {
+  var IntroHigh, Panel, Spine,
     bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     hasProp = {}.hasOwnProperty;
@@ -23847,52 +23847,39 @@ if (typeof JSON !== 'object') {
 
   Panel = require('spine.mobile').Panel;
 
-  Results = (function(superClass) {
-    extend(Results, superClass);
+  IntroHigh = (function(superClass) {
+    extend(IntroHigh, superClass);
 
-    Results.prototype.className = 'results';
+    IntroHigh.prototype.className = 'intro_low';
 
-    Results.prototype.events = {
-      'tap .link': 'restart',
-      'tap .buton': 'next'
+    IntroHigh.prototype.events = {
+      'click .button': 'next'
     };
 
-    function Results() {
+    function IntroHigh() {
       this.render = bind(this.render, this);
-      Results.__super__.constructor.apply(this, arguments);
+      IntroHigh.__super__.constructor.apply(this, arguments);
+      this.render();
     }
 
-    Results.prototype.active = function(params) {
-      this.log("Results", params);
-      this.params = params;
-      Results.__super__.active.apply(this, arguments);
-      return this.render();
+    IntroHigh.prototype.render = function() {
+      return this.html(require('views/intro/email_form')(this));
     };
 
-    Results.prototype.render = function() {
-      return this.html(require('views/intro/results')(this));
-    };
-
-    Results.prototype.restart = function() {
-      return this.navigate('/', {
+    IntroHigh.prototype.next = function() {
+      return this.navigate('/email_sent', {
         trans: 'left'
       });
     };
 
-    Results.prototype.next = function() {
-      return this.navigate('/email_form', {
-        trans: 'right'
-      });
-    };
-
-    return Results;
+    return IntroHigh;
 
   })(Panel);
 
-  module.exports = Results;
+  module.exports = IntroHigh;
 
 }).call(this);
-}, "controllers/startup": function(exports, require, module) {(function() {
+}, "controllers/intro": function(exports, require, module) {(function() {
   var Intro, Panel, Spine,
     bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -23905,24 +23892,29 @@ if (typeof JSON !== 'object') {
   Intro = (function(superClass) {
     extend(Intro, superClass);
 
-    Intro.prototype.className = 'startup';
+    Intro.prototype.className = 'intro x';
 
     Intro.prototype.events = {
       'tap .button': 'next'
     };
 
-    function Intro() {
+    function Intro(params) {
       this.render = bind(this.render, this);
+      this.mode = params.mode;
+      this.page = params.page;
+      this.next_page = params.next_page;
+      this.className = this.mode + ' ' + this.page;
+      this.log(params, this.className, this.next_page);
       Intro.__super__.constructor.apply(this, arguments);
       this.render();
     }
 
     Intro.prototype.render = function() {
-      return this.html(require('views/intro/index')(this));
+      return this.html(require('views/intro/intro')(this));
     };
 
     Intro.prototype.next = function() {
-      return this.navigate('/intro_low', {
+      return this.navigate(this.next_page, {
         trans: 'right'
       });
     };
@@ -23932,6 +23924,70 @@ if (typeof JSON !== 'object') {
   })(Panel);
 
   module.exports = Intro;
+
+}).call(this);
+}, "controllers/play": function(exports, require, module) {(function() {
+  var Panel, PlayLow, Spine,
+    bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  Spine = require('spine');
+
+  Panel = require('spine.mobile').Panel;
+
+  PlayLow = (function(superClass) {
+    extend(PlayLow, superClass);
+
+    PlayLow.prototype.className = 'play';
+
+    PlayLow.prototype.events = {
+      'tap .button': 'next'
+    };
+
+    PlayLow.prototype.elements = {
+      "audio": "audio"
+    };
+
+    function PlayLow(mode) {
+      this.active = bind(this.active, this);
+      this.render = bind(this.render, this);
+      this.mode = mode;
+      this.className = this.mode + ' play';
+      PlayLow.__super__.constructor.apply(this, arguments);
+      this.render();
+    }
+
+    PlayLow.prototype.render = function() {
+      return this.html(require('views/intro/play')(this));
+    };
+
+    PlayLow.prototype.active = function() {
+      PlayLow.__super__.active.apply(this, arguments);
+      return setTimeout(((function(_this) {
+        return function() {
+          _this.audio[0].currentTime = 0;
+          _this.audio[0].play();
+          return setTimeout((function() {
+            _this.audio[0].pause();
+            return _this.next();
+          }), 6500);
+        };
+      })(this)), 200);
+    };
+
+    PlayLow.prototype.next = function() {
+      this.log('/intro2_' + this.mode);
+      return this.navigate('/intro2_' + this.mode, {
+        trans: 'right'
+      });
+    };
+
+    return PlayLow;
+
+  })(Panel);
+
+  module.exports = PlayLow;
 
 }).call(this);
 }, "controllers/record": function(exports, require, module) {(function() {
@@ -24037,7 +24093,7 @@ if (typeof JSON !== 'object') {
           return function(callback) {
             $(".timer").show();
             _this.app.mic.enable($(".record h1"), _this.mode);
-            return async.eachSeries([15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1], function(i, cb) {
+            return async.eachSeries([10, 9, 8, 7, 6, 5, 4, 3, 2, 1], function(i, cb) {
               $(".timer .counter").html(i);
               console.log(Date(), "tack", i);
               return setTimeout(function() {
@@ -24089,8 +24145,8 @@ if (typeof JSON !== 'object') {
   module.exports = Record;
 
 }).call(this);
-}, "controllers/email": function(exports, require, module) {(function() {
-  var IntroHigh, Panel, Spine,
+}, "controllers/results": function(exports, require, module) {(function() {
+  var Panel, Results, Spine,
     bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     hasProp = {}.hasOwnProperty;
@@ -24099,39 +24155,52 @@ if (typeof JSON !== 'object') {
 
   Panel = require('spine.mobile').Panel;
 
-  IntroHigh = (function(superClass) {
-    extend(IntroHigh, superClass);
+  Results = (function(superClass) {
+    extend(Results, superClass);
 
-    IntroHigh.prototype.className = 'intro_low';
+    Results.prototype.className = 'results';
 
-    IntroHigh.prototype.events = {
+    Results.prototype.events = {
+      'tap .link': 'restart',
       'tap .button': 'next'
     };
 
-    function IntroHigh() {
+    function Results() {
       this.render = bind(this.render, this);
-      IntroHigh.__super__.constructor.apply(this, arguments);
-      this.render();
+      Results.__super__.constructor.apply(this, arguments);
     }
 
-    IntroHigh.prototype.render = function() {
-      return this.html(require('views/intro/email_form')(this));
+    Results.prototype.active = function(params) {
+      this.log("Results", params);
+      this.params = params;
+      Results.__super__.active.apply(this, arguments);
+      return this.render();
     };
 
-    IntroHigh.prototype.next = function() {
-      return this.navigate('/email_sent', {
+    Results.prototype.render = function() {
+      return this.html(require('views/intro/results')(this));
+    };
+
+    Results.prototype.restart = function() {
+      return this.navigate('/', {
         trans: 'left'
       });
     };
 
-    return IntroHigh;
+    Results.prototype.next = function() {
+      return this.navigate('/email_form', {
+        trans: 'right'
+      });
+    };
+
+    return Results;
 
   })(Panel);
 
-  module.exports = IntroHigh;
+  module.exports = Results;
 
 }).call(this);
-}, "controllers/intro": function(exports, require, module) {(function() {
+}, "controllers/startup": function(exports, require, module) {(function() {
   var Intro, Panel, Spine,
     bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -24144,29 +24213,24 @@ if (typeof JSON !== 'object') {
   Intro = (function(superClass) {
     extend(Intro, superClass);
 
-    Intro.prototype.className = 'intro x';
+    Intro.prototype.className = 'startup';
 
     Intro.prototype.events = {
       'tap .button': 'next'
     };
 
-    function Intro(params) {
+    function Intro() {
       this.render = bind(this.render, this);
-      this.mode = params.mode;
-      this.page = params.page;
-      this.next_page = params.next_page;
-      this.className = this.mode + ' ' + this.page;
-      this.log(params, this.className, this.next_page);
       Intro.__super__.constructor.apply(this, arguments);
       this.render();
     }
 
     Intro.prototype.render = function() {
-      return this.html(require('views/intro/intro')(this));
+      return this.html(require('views/intro/index')(this));
     };
 
     Intro.prototype.next = function() {
-      return this.navigate(this.next_page, {
+      return this.navigate('/intro_low', {
         trans: 'right'
       });
     };
@@ -24176,76 +24240,6 @@ if (typeof JSON !== 'object') {
   })(Panel);
 
   module.exports = Intro;
-
-}).call(this);
-}, "controllers/play": function(exports, require, module) {(function() {
-  var Panel, PlayLow, Spine,
-    bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
-    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-    hasProp = {}.hasOwnProperty;
-
-  Spine = require('spine');
-
-  Panel = require('spine.mobile').Panel;
-
-  PlayLow = (function(superClass) {
-    extend(PlayLow, superClass);
-
-    PlayLow.prototype.className = 'play';
-
-    PlayLow.prototype.events = {
-      'tap .button': 'next'
-    };
-
-    PlayLow.prototype.elements = {
-      "audio": "audio"
-    };
-
-    function PlayLow(mode) {
-      this.active = bind(this.active, this);
-      this.render = bind(this.render, this);
-      this.active = bind(this.active, this);
-      this.mode = mode;
-      this.className = this.mode + ' play';
-      PlayLow.__super__.constructor.apply(this, arguments);
-      this.render();
-    }
-
-    PlayLow.prototype.active = function() {
-      this.log("active", this.mode);
-      PlayLow.__super__.active.apply(this, arguments);
-      return this.render();
-    };
-
-    PlayLow.prototype.render = function() {
-      return this.html(require('views/intro/play')(this));
-    };
-
-    PlayLow.prototype.active = function() {
-      PlayLow.__super__.active.apply(this, arguments);
-      return setTimeout(((function(_this) {
-        return function() {
-          $("audio", _this.el)[0].play();
-          return setTimeout((function() {
-            $("audio", _this.el)[0].pause();
-            return _this.next();
-          }), 7000);
-        };
-      })(this)), 200);
-    };
-
-    PlayLow.prototype.next = function() {
-      this.log('/intro2_' + this.mode);
-      return this.navigate('/intro2_' + this.mode, {
-        trans: 'right'
-      });
-    };
-
-    return PlayLow;
-
-  })(Panel);
-
-  module.exports = PlayLow;
 
 }).call(this);
 }, "index": function(exports, require, module) {(function() {
@@ -24391,6 +24385,9 @@ if (typeof JSON !== 'object') {
         }
       });
       this.footer.html(require('views/intro/footer'));
+      this.navigate('/results', {
+        trans: 'right'
+      });
     }
 
     return App;
@@ -24398,6 +24395,220 @@ if (typeof JSON !== 'object') {
   })(Stage.Global);
 
   module.exports = App;
+
+}).call(this);
+}, "lib/setup": function(exports, require, module) {(function() {
+  require('json2ify');
+
+  require('es5-shimify');
+
+  require('jqueryify');
+
+  require('gfx');
+
+  require('spine');
+
+  require('spine/lib/local');
+
+  require('spine/lib/ajax');
+
+  require('spine/lib/manager');
+
+  require('spine/lib/route');
+
+  require('spine.mobile');
+
+}).call(this);
+}, "models/microphone": function(exports, require, module) {(function() {
+  var Mic,
+    bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
+  Mic = (function() {
+    Mic.MIN_SAMPLES = 0;
+
+    Mic.tracks = null;
+
+    Mic.buf = new Float32Array(1024);
+
+    function Mic(canvas) {
+      this.updatePitch = bind(this.updatePitch, this);
+      this.gotStream = bind(this.gotStream, this);
+      this.gotSources = bind(this.gotSources, this);
+      this.waveWidth = parseInt($("canvas").css("width"));
+      this.waveHeight = parseInt($("canvas").css("height"));
+      $("canvas").attr('width', this.waveWidth);
+      $("canvas").attr('height', this.waveHeight);
+      this.waveCanvas = canvas[0].getContext("2d");
+      this.waveCanvas.strokeStyle = "#00897b";
+      this.waveCanvas.lineWidth = 1;
+      this.audioContext = new AudioContext();
+      this.analyser = this.audioContext.createAnalyser();
+      this.analyser.fftSize = 2048;
+      this.rafID = null;
+      this.pitchEl = null;
+      this.mode = 'low';
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = window.webkitRequestAnimationFrame;
+      }
+      MediaStreamTrack.getSources(this.gotSources);
+    }
+
+    Mic.prototype.gotSources = function(sources) {
+      var constraints, j, len, source, sourceId;
+      console.log(sources);
+      constraints = {
+        "audio": {
+          "mandatory": {
+            "googEchoCancellation": "false",
+            "googAutoGainControl": "false",
+            "googNoiseSuppression": "false",
+            "googHighpassFilter": "false"
+          },
+          "optional": []
+        }
+      };
+      sourceId = localStorage.getItem("sourceId");
+      if (sourceId) {
+        for (j = 0, len = sources.length; j < len; j++) {
+          source = sources[j];
+          if (source.label === sourceId) {
+            constraints.audio.optional.push({
+              sourceId: source.id
+            });
+            break;
+          }
+        }
+      }
+      console.log(constraints);
+      return this.getUserMedia(constraints, this.gotStream);
+    };
+
+    Mic.prototype.enable = function(el, mode) {
+      console.log("mic, enable", el, mode);
+      this.pitchEl = el;
+      this.mode = mode;
+      if (mode === 'low') {
+        this.pitch = 1e10;
+      }
+      if (mode === 'high') {
+        return this.pitch = -1e10;
+      }
+    };
+
+    Mic.prototype.disable = function() {
+      console.log("mic, disable");
+      return this.pitchEl = null;
+    };
+
+    Mic.prototype.getUserMedia = function(dictionary, callback) {
+      navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+      return navigator.getUserMedia(dictionary, callback, function(e) {
+        return console.log(e);
+      });
+    };
+
+    Mic.prototype.gotStream = function(stream) {
+      this.mediaStreamSource = this.audioContext.createMediaStreamSource(stream);
+      this.analyser = this.audioContext.createAnalyser();
+      this.analyser.fftSize = 1024;
+      this.mediaStreamSource.connect(this.analyser);
+      if (this.analyserView1) {
+        this.freqByteData = new Uint8Array(this.analyser.frequencyBinCount);
+        this.analyserView1.initByteBuffer(this.analyser);
+        this.history1 = new CircularBuffer(500, this.analyser.frequencyBinCount);
+        this.history2 = new CircularBuffer(10, this.analyser.frequencyBinCount);
+      }
+      return this.updatePitch();
+    };
+
+    Mic.prototype.updatePitch = function(time) {
+      var ac, cycles, i, j, k, ref, x, y;
+      this.analyser.smoothingTimeConstant = 0.75;
+      this.analyser.getByteFrequencyData(this.freqByteData);
+      if (this.analyserView1) {
+        this.history1.push(this.freqByteData);
+        this.history2.push(this.freqByteData);
+        this.analyserView1.freqByteData = this.history1.avg();
+        this.analyserView1.drawGL();
+      }
+      cycles = [];
+      this.analyser.getFloatTimeDomainData(Mic.buf);
+      ac = this.autoCorrelate(Mic.buf, this.audioContext.sampleRate);
+      this.waveCanvas.clearRect(0, 0, this.waveWidth, this.waveHeight);
+      for (i = j = 0; j <= 10; i = ++j) {
+        this.waveCanvas.beginPath();
+        for (x = k = 0, ref = this.waveWidth; 0 <= ref ? k <= ref : k >= ref; x = 0 <= ref ? ++k : --k) {
+          y = Math.sin(x / this.waveWidth * 12 + 30);
+          this.waveCanvas.lineTo(x, y * Mic.buf[i * 10] * 800 + this.waveHeight / 2);
+        }
+        this.waveCanvas.stroke();
+      }
+      if (ac > 0) {
+        if (this.mode === 'low') {
+          this.pitch = Math.min(this.pitch, Math.round(ac));
+        }
+        if (this.mode === 'high') {
+          this.pitch = Math.max(this.pitch, Math.round(ac));
+        }
+      }
+      this.rafID = window.requestAnimationFrame(this.updatePitch);
+      if (this.pitchEl) {
+        if (this.pitch > 0 && this.pitch < 30000) {
+          return this.pitchEl.html(this.pitch + " Hz");
+        } else {
+          return this.pitchEl.html("- Hz");
+        }
+      }
+    };
+
+    Mic.prototype.autoCorrelate = function(buf, sampleRate) {
+      var MAX_SAMPLES, SIZE, best_correlation, best_offset, correlation, correlations, foundGoodCorrelation, i, j, k, l, lastCorrelation, offset, ref, ref1, ref2, ref3, rms, shift, val;
+      SIZE = buf.length;
+      MAX_SAMPLES = Math.floor(SIZE / 2);
+      best_offset = -1;
+      best_correlation = 0;
+      rms = 0;
+      foundGoodCorrelation = false;
+      correlations = new Array(MAX_SAMPLES);
+      for (i = j = 0, ref = SIZE; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
+        val = buf[i];
+        rms += val * val;
+      }
+      rms = Math.sqrt(rms / SIZE);
+      if (rms < 0.01) {
+        return -1;
+      }
+      lastCorrelation = 1;
+      for (offset = k = ref1 = Mic.MIN_SAMPLES, ref2 = MAX_SAMPLES; ref1 <= ref2 ? k <= ref2 : k >= ref2; offset = ref1 <= ref2 ? ++k : --k) {
+        correlation = 0;
+        for (i = l = 0, ref3 = MAX_SAMPLES; 0 <= ref3 ? l <= ref3 : l >= ref3; i = 0 <= ref3 ? ++l : --l) {
+          correlation += Math.abs(buf[i] - buf[i + offset]);
+        }
+        correlation = 1 - (correlation / MAX_SAMPLES);
+        correlations[offset] = correlation;
+        if ((correlation > 0.9) && (correlation > lastCorrelation)) {
+          foundGoodCorrelation = true;
+          if (correlation > best_correlation) {
+            best_correlation = correlation;
+            best_offset = offset;
+          }
+        } else if (foundGoodCorrelation) {
+          shift = (correlations[best_offset + 1] - correlations[best_offset - 1]) / correlations[best_offset];
+          return sampleRate / (best_offset + (8 * shift));
+        }
+        lastCorrelation = correlation;
+      }
+      if (best_correlation > 0.01) {
+        return sampleRate / best_offset;
+      }
+      return -1;
+    };
+
+    return Mic;
+
+  })();
+
+  module.exports = Mic;
 
 }).call(this);
 }, "views/intro/email_form": function(exports, require, module) {var content = function(__obj) {
@@ -24447,112 +24658,6 @@ if (typeof JSON !== 'object') {
   __obj.safe = __objSafe, __obj.escape = __escape;
   return __out.join('');
 };
-module.exports = content;}, "views/intro/record": function(exports, require, module) {var content = function(__obj) {
-  if (!__obj) __obj = {};
-  var __out = [], __capture = function(callback) {
-    var out = __out, result;
-    __out = [];
-    callback.call(this);
-    result = __out.join('');
-    __out = out;
-    return __safe(result);
-  }, __sanitize = function(value) {
-    if (value && value.ecoSafe) {
-      return value;
-    } else if (typeof value !== 'undefined' && value != null) {
-      return __escape(value);
-    } else {
-      return '';
-    }
-  }, __safe, __objSafe = __obj.safe, __escape = __obj.escape;
-  __safe = __obj.safe = function(value) {
-    if (value && value.ecoSafe) {
-      return value;
-    } else {
-      if (!(typeof value !== 'undefined' && value != null)) value = '';
-      var result = new String(value);
-      result.ecoSafe = true;
-      return result;
-    }
-  };
-  if (!__escape) {
-    __escape = __obj.escape = function(value) {
-      return ('' + value)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;');
-    };
-  }
-  (function() {
-    (function() {
-      __out.push('<h1>85Hz</h1>\n<section class="progress">\n<ol class="retries">\n  <li>katse</li>\n  <li>katse</li>\n  <li>katse</li>\n</ol>\n\n<ul class="results">\n  <li></li>\n  <li></li>\n  <li></li>\n</ul>\n\n<ol class="countdown">\n  <li>3</li>\n  <li>2</li>\n  <li>1</li>\n</ol>\n</section>\n<section class="timer">\n<div class="radial-timer s-animate">\n  <div class="radial-timer-half"></div>\n  <div class="radial-timer-half"></div>\n</div>\n<div class="counter">15</div>\n</section>');
-    
-    }).call(this);
-    
-  }).call(__obj);
-  __obj.safe = __objSafe, __obj.escape = __escape;
-  return __out.join('');
-};
-module.exports = content;}, "views/intro/play": function(exports, require, module) {var content = function(__obj) {
-  if (!__obj) __obj = {};
-  var __out = [], __capture = function(callback) {
-    var out = __out, result;
-    __out = [];
-    callback.call(this);
-    result = __out.join('');
-    __out = out;
-    return __safe(result);
-  }, __sanitize = function(value) {
-    if (value && value.ecoSafe) {
-      return value;
-    } else if (typeof value !== 'undefined' && value != null) {
-      return __escape(value);
-    } else {
-      return '';
-    }
-  }, __safe, __objSafe = __obj.safe, __escape = __obj.escape;
-  __safe = __obj.safe = function(value) {
-    if (value && value.ecoSafe) {
-      return value;
-    } else {
-      if (!(typeof value !== 'undefined' && value != null)) value = '';
-      var result = new String(value);
-      result.ecoSafe = true;
-      return result;
-    }
-  };
-  if (!__escape) {
-    __escape = __obj.escape = function(value) {
-      return ('' + value)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;');
-    };
-  }
-  (function() {
-    (function() {
-      __out.push('<section>\n        <img src="');
-    
-      __out.push(__sanitize(app_data.assets[this.mode].image));
-    
-      __out.push('">\n        ');
-    
-      __out.push(app_data.messages[lang].play[this.mode]);
-    
-      __out.push('\n<audio>\n  <source src="');
-    
-      __out.push(__sanitize(app_data.assets[this.mode].sound));
-    
-      __out.push('" type="audio/mpeg">\n</audio>\n<div class="progress">\n  <span class="indicator" style="width: 50%;"></span>\n</div>\n</section>');
-    
-    }).call(this);
-    
-  }).call(__obj);
-  __obj.safe = __objSafe, __obj.escape = __escape;
-  return __out.join('');
-};
 module.exports = content;}, "views/intro/email_sent": function(exports, require, module) {var content = function(__obj) {
   if (!__obj) __obj = {};
   var __out = [], __capture = function(callback) {
@@ -24593,61 +24698,6 @@ module.exports = content;}, "views/intro/email_sent": function(exports, require,
   (function() {
     (function() {
       __out.push('<h1 class="status">Record</h1>\n<section>\n<div class="button">Edasi</div>\n</section>');
-    
-    }).call(this);
-    
-  }).call(__obj);
-  __obj.safe = __objSafe, __obj.escape = __escape;
-  return __out.join('');
-};
-module.exports = content;}, "views/intro/intro": function(exports, require, module) {var content = function(__obj) {
-  if (!__obj) __obj = {};
-  var __out = [], __capture = function(callback) {
-    var out = __out, result;
-    __out = [];
-    callback.call(this);
-    result = __out.join('');
-    __out = out;
-    return __safe(result);
-  }, __sanitize = function(value) {
-    if (value && value.ecoSafe) {
-      return value;
-    } else if (typeof value !== 'undefined' && value != null) {
-      return __escape(value);
-    } else {
-      return '';
-    }
-  }, __safe, __objSafe = __obj.safe, __escape = __obj.escape;
-  __safe = __obj.safe = function(value) {
-    if (value && value.ecoSafe) {
-      return value;
-    } else {
-      if (!(typeof value !== 'undefined' && value != null)) value = '';
-      var result = new String(value);
-      result.ecoSafe = true;
-      return result;
-    }
-  };
-  if (!__escape) {
-    __escape = __obj.escape = function(value) {
-      return ('' + value)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;');
-    };
-  }
-  (function() {
-    (function() {
-      __out.push('<h1>');
-    
-      __out.push(app_data.messages[lang][this.page][this.mode]);
-    
-      __out.push('</h1>\n<section>\n<div class="button">');
-    
-      __out.push(app_data.messages[lang].intro.button);
-    
-      __out.push('</div>\n</section>');
     
     }).call(this);
     
@@ -24761,6 +24811,167 @@ module.exports = content;}, "views/intro/index": function(exports, require, modu
   __obj.safe = __objSafe, __obj.escape = __escape;
   return __out.join('');
 };
+module.exports = content;}, "views/intro/intro": function(exports, require, module) {var content = function(__obj) {
+  if (!__obj) __obj = {};
+  var __out = [], __capture = function(callback) {
+    var out = __out, result;
+    __out = [];
+    callback.call(this);
+    result = __out.join('');
+    __out = out;
+    return __safe(result);
+  }, __sanitize = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else if (typeof value !== 'undefined' && value != null) {
+      return __escape(value);
+    } else {
+      return '';
+    }
+  }, __safe, __objSafe = __obj.safe, __escape = __obj.escape;
+  __safe = __obj.safe = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else {
+      if (!(typeof value !== 'undefined' && value != null)) value = '';
+      var result = new String(value);
+      result.ecoSafe = true;
+      return result;
+    }
+  };
+  if (!__escape) {
+    __escape = __obj.escape = function(value) {
+      return ('' + value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    };
+  }
+  (function() {
+    (function() {
+      __out.push('<h1>');
+    
+      __out.push(app_data.messages[lang][this.page][this.mode]);
+    
+      __out.push('</h1>\n<section>\n<div class="button">');
+    
+      __out.push(app_data.messages[lang].intro.button);
+    
+      __out.push('</div>\n</section>');
+    
+    }).call(this);
+    
+  }).call(__obj);
+  __obj.safe = __objSafe, __obj.escape = __escape;
+  return __out.join('');
+};
+module.exports = content;}, "views/intro/play": function(exports, require, module) {var content = function(__obj) {
+  if (!__obj) __obj = {};
+  var __out = [], __capture = function(callback) {
+    var out = __out, result;
+    __out = [];
+    callback.call(this);
+    result = __out.join('');
+    __out = out;
+    return __safe(result);
+  }, __sanitize = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else if (typeof value !== 'undefined' && value != null) {
+      return __escape(value);
+    } else {
+      return '';
+    }
+  }, __safe, __objSafe = __obj.safe, __escape = __obj.escape;
+  __safe = __obj.safe = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else {
+      if (!(typeof value !== 'undefined' && value != null)) value = '';
+      var result = new String(value);
+      result.ecoSafe = true;
+      return result;
+    }
+  };
+  if (!__escape) {
+    __escape = __obj.escape = function(value) {
+      return ('' + value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    };
+  }
+  (function() {
+    (function() {
+      __out.push('<section>\n        <img src="');
+    
+      __out.push(__sanitize(app_data.assets[this.mode].image));
+    
+      __out.push('">\n        ');
+    
+      __out.push(app_data.messages[lang].play[this.mode]);
+    
+      __out.push('\n<audio>\n  <source src="');
+    
+      __out.push(__sanitize(app_data.assets[this.mode].sound));
+    
+      __out.push('" type="audio/mpeg">\n</audio>\n<div class="progress">\n  <span class="indicator" style="width: 50%;"></span>\n</div>\n</section>');
+    
+    }).call(this);
+    
+  }).call(__obj);
+  __obj.safe = __objSafe, __obj.escape = __escape;
+  return __out.join('');
+};
+module.exports = content;}, "views/intro/record": function(exports, require, module) {var content = function(__obj) {
+  if (!__obj) __obj = {};
+  var __out = [], __capture = function(callback) {
+    var out = __out, result;
+    __out = [];
+    callback.call(this);
+    result = __out.join('');
+    __out = out;
+    return __safe(result);
+  }, __sanitize = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else if (typeof value !== 'undefined' && value != null) {
+      return __escape(value);
+    } else {
+      return '';
+    }
+  }, __safe, __objSafe = __obj.safe, __escape = __obj.escape;
+  __safe = __obj.safe = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else {
+      if (!(typeof value !== 'undefined' && value != null)) value = '';
+      var result = new String(value);
+      result.ecoSafe = true;
+      return result;
+    }
+  };
+  if (!__escape) {
+    __escape = __obj.escape = function(value) {
+      return ('' + value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    };
+  }
+  (function() {
+    (function() {
+      __out.push('<h1>-Hz</h1>\n<section class="progress">\n<ol class="retries">\n  <li>katse</li>\n  <li>katse</li>\n  <li>katse</li>\n</ol>\n\n<ul class="results">\n  <li></li>\n  <li></li>\n  <li></li>\n</ul>\n\n<ol class="countdown">\n  <li>3</li>\n  <li>2</li>\n  <li>1</li>\n</ol>\n</section>\n<section class="timer">\n<div class="radial-timer s-animate">\n  <div class="radial-timer-half"></div>\n  <div class="radial-timer-half"></div>\n</div>\n<div class="counter">10</div>\n</section>');
+    
+    }).call(this);
+    
+  }).call(__obj);
+  __obj.safe = __objSafe, __obj.escape = __escape;
+  return __out.join('');
+};
 module.exports = content;}, "views/intro/results": function(exports, require, module) {var content = function(__obj) {
   if (!__obj) __obj = {};
   var __out = [], __capture = function(callback) {
@@ -24816,195 +25027,6 @@ module.exports = content;}, "views/intro/results": function(exports, require, mo
   __obj.safe = __objSafe, __obj.escape = __escape;
   return __out.join('');
 };
-module.exports = content;}, "models/microphone": function(exports, require, module) {(function() {
-  var Mic,
-    bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
-
-  Mic = (function() {
-    Mic.MIN_SAMPLES = 0;
-
-    Mic.tracks = null;
-
-    Mic.buf = new Float32Array(1024);
-
-    function Mic(canvas) {
-      this.updatePitch = bind(this.updatePitch, this);
-      this.gotStream = bind(this.gotStream, this);
-      this.waveWidth = parseInt($("canvas").css("width"));
-      this.waveHeight = parseInt($("canvas").css("height"));
-      $("canvas").attr('width', this.waveWidth);
-      $("canvas").attr('height', this.waveHeight);
-      this.waveCanvas = canvas[0].getContext("2d");
-      this.waveCanvas.strokeStyle = "#00897b";
-      this.waveCanvas.lineWidth = 1;
-      this.audioContext = new AudioContext();
-      this.analyser = this.audioContext.createAnalyser();
-      this.analyser.fftSize = 2048;
-      this.rafID = null;
-      this.pitchEl = null;
-      this.mode = 'low';
-      if (!window.requestAnimationFrame) {
-        window.requestAnimationFrame = window.webkitRequestAnimationFrame;
-      }
-      this.getUserMedia({
-        "audio": {
-          "mandatory": {
-            "googEchoCancellation": "false",
-            "googAutoGainControl": "false",
-            "googNoiseSuppression": "false",
-            "googHighpassFilter": "false"
-          },
-          "optional": []
-        }
-      }, this.gotStream);
-    }
-
-    Mic.prototype.enable = function(el, mode) {
-      console.log("mic, enable", el, mode);
-      this.pitchEl = el;
-      this.mode = mode;
-      if (mode === 'low') {
-        this.pitch = 1e10;
-      }
-      if (mode === 'high') {
-        return this.pitch = -1e10;
-      }
-    };
-
-    Mic.prototype.disable = function() {
-      console.log("mic, disable");
-      return this.pitchEl = null;
-    };
-
-    Mic.prototype.getUserMedia = function(dictionary, callback) {
-      navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-      return navigator.getUserMedia(dictionary, callback, function(e) {
-        return console.log(e);
-      });
-    };
-
-    Mic.prototype.gotStream = function(stream) {
-      this.mediaStreamSource = this.audioContext.createMediaStreamSource(stream);
-      this.analyser = this.audioContext.createAnalyser();
-      this.analyser.fftSize = 1024;
-      this.mediaStreamSource.connect(this.analyser);
-      if (this.analyserView1) {
-        this.freqByteData = new Uint8Array(this.analyser.frequencyBinCount);
-        this.analyserView1.initByteBuffer(this.analyser);
-        this.history1 = new CircularBuffer(500, this.analyser.frequencyBinCount);
-        this.history2 = new CircularBuffer(10, this.analyser.frequencyBinCount);
-      }
-      return this.updatePitch();
-    };
-
-    Mic.prototype.updatePitch = function(time) {
-      var ac, cycles, i, j, k, ref, x, y;
-      this.analyser.smoothingTimeConstant = 0.75;
-      this.analyser.getByteFrequencyData(this.freqByteData);
-      if (this.analyserView1) {
-        this.history1.push(this.freqByteData);
-        this.history2.push(this.freqByteData);
-        this.analyserView1.freqByteData = this.history1.avg();
-        this.analyserView1.drawGL();
-      }
-      cycles = [];
-      this.analyser.getFloatTimeDomainData(Mic.buf);
-      ac = this.autoCorrelate(Mic.buf, this.audioContext.sampleRate);
-      this.waveCanvas.clearRect(0, 0, this.waveWidth, this.waveHeight);
-      for (i = j = 0; j <= 10; i = ++j) {
-        this.waveCanvas.beginPath();
-        for (x = k = 0, ref = this.waveWidth; 0 <= ref ? k <= ref : k >= ref; x = 0 <= ref ? ++k : --k) {
-          y = Math.sin(x / this.waveWidth * 12 + 30);
-          this.waveCanvas.lineTo(x, y * Mic.buf[i * 10] * 800 + this.waveHeight / 2);
-        }
-        this.waveCanvas.stroke();
-      }
-      if (ac > 0) {
-        if (this.mode === 'low') {
-          this.pitch = Math.min(this.pitch, Math.round(ac));
-        }
-        if (this.mode === 'high') {
-          this.pitch = Math.max(this.pitch, Math.round(ac));
-        }
-      }
-      this.rafID = window.requestAnimationFrame(this.updatePitch);
-      if (this.pitchEl) {
-        return this.pitchEl.html(this.pitch + "Hz");
-      }
-    };
-
-    Mic.prototype.autoCorrelate = function(buf, sampleRate) {
-      var MAX_SAMPLES, SIZE, best_correlation, best_offset, correlation, correlations, foundGoodCorrelation, i, j, k, l, lastCorrelation, offset, ref, ref1, ref2, ref3, rms, shift, val;
-      SIZE = buf.length;
-      MAX_SAMPLES = Math.floor(SIZE / 2);
-      best_offset = -1;
-      best_correlation = 0;
-      rms = 0;
-      foundGoodCorrelation = false;
-      correlations = new Array(MAX_SAMPLES);
-      for (i = j = 0, ref = SIZE; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
-        val = buf[i];
-        rms += val * val;
-      }
-      rms = Math.sqrt(rms / SIZE);
-      if (rms < 0.01) {
-        return -1;
-      }
-      lastCorrelation = 1;
-      for (offset = k = ref1 = Mic.MIN_SAMPLES, ref2 = MAX_SAMPLES; ref1 <= ref2 ? k <= ref2 : k >= ref2; offset = ref1 <= ref2 ? ++k : --k) {
-        correlation = 0;
-        for (i = l = 0, ref3 = MAX_SAMPLES; 0 <= ref3 ? l <= ref3 : l >= ref3; i = 0 <= ref3 ? ++l : --l) {
-          correlation += Math.abs(buf[i] - buf[i + offset]);
-        }
-        correlation = 1 - (correlation / MAX_SAMPLES);
-        correlations[offset] = correlation;
-        if ((correlation > 0.9) && (correlation > lastCorrelation)) {
-          foundGoodCorrelation = true;
-          if (correlation > best_correlation) {
-            best_correlation = correlation;
-            best_offset = offset;
-          }
-        } else if (foundGoodCorrelation) {
-          shift = (correlations[best_offset + 1] - correlations[best_offset - 1]) / correlations[best_offset];
-          return sampleRate / (best_offset + (8 * shift));
-        }
-        lastCorrelation = correlation;
-      }
-      if (best_correlation > 0.01) {
-        return sampleRate / best_offset;
-      }
-      return -1;
-    };
-
-    return Mic;
-
-  })();
-
-  module.exports = Mic;
-
-}).call(this);
-}, "lib/setup": function(exports, require, module) {(function() {
-  require('json2ify');
-
-  require('es5-shimify');
-
-  require('jqueryify');
-
-  require('gfx');
-
-  require('spine');
-
-  require('spine/lib/local');
-
-  require('spine/lib/ajax');
-
-  require('spine/lib/manager');
-
-  require('spine/lib/route');
-
-  require('spine.mobile');
-
-}).call(this);
-}
+module.exports = content;}
 });
 
