@@ -13,7 +13,18 @@ class Record extends Panel
     
   elements:
     '.countdown': 'countdown'
+  
+  noteStrings: ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
     
+  noteFromPitch: (frequency) ->
+    noteNum = 12 * (Math.log(frequency / 440) / Math.log(2))
+    note = Math.round(noteNum) + 69
+    
+    noteGroup = Math.floor(note/12)-1;
+ 
+    return @noteStrings[note % 12] + noteGroup
+    
+
   constructor: (mode, app)->
     @app = app
     @mode = mode
@@ -22,6 +33,7 @@ class Record extends Panel
     @render()
     @result = 4e4 if mode == 'low'
     @result = -4e4 if mode == 'high'
+    @note = ''
     
   stoptimer: (e) ->
     e.currentTarget.style.webkitAnimationPlayState = "paused";
@@ -90,15 +102,21 @@ class Record extends Panel
           $(".timer").hide()
           @app.mic.disable();
           $(".results li:nth-child("+k+")").addClass('active').text(@app.mic.pitch + "Hz");
-          @result = Math.min(@result, @app.mic.pitch) if @mode == 'low';
-          @result = Math.max(@result, @app.mic.pitch) if @mode == 'high';
+          if @mode == 'low' &&  @app.mic.pitch < @result
+            @result = @app.mic.pitch
+            @note = @noteFromPitch(@result)
+          if @mode == 'high' &&  @app.mic.pitch > @result
+            @result = @app.mic.pitch
+            @note = @noteFromPitch(@result)
     
           callback()
     
     ], 
     (err, results) =>
       #@next()
-      done()
+      setTimeout( ->
+        done();
+      ,2000)
     )
     
   next: =>

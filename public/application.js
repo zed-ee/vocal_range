@@ -24019,6 +24019,16 @@ if (typeof JSON !== 'object') {
       '.countdown': 'countdown'
     };
 
+    Record.prototype.noteStrings = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+
+    Record.prototype.noteFromPitch = function(frequency) {
+      var note, noteGroup, noteNum;
+      noteNum = 12 * (Math.log(frequency / 440) / Math.log(2));
+      note = Math.round(noteNum) + 69;
+      noteGroup = Math.floor(note / 12) - 1;
+      return this.noteStrings[note % 12] + noteGroup;
+    };
+
     function Record(mode, app) {
       this.next = bind(this.next, this);
       this.retry = bind(this.retry, this);
@@ -24035,6 +24045,7 @@ if (typeof JSON !== 'object') {
       if (mode === 'high') {
         this.result = -4e4;
       }
+      this.note = '';
     }
 
     Record.prototype.stoptimer = function(e) {
@@ -24109,18 +24120,22 @@ if (typeof JSON !== 'object') {
             $(".timer").hide();
             _this.app.mic.disable();
             $(".results li:nth-child(" + k + ")").addClass('active').text(_this.app.mic.pitch + "Hz");
-            if (_this.mode === 'low') {
-              _this.result = Math.min(_this.result, _this.app.mic.pitch);
+            if (_this.mode === 'low' && _this.app.mic.pitch < _this.result) {
+              _this.result = _this.app.mic.pitch;
+              _this.note = _this.noteFromPitch(_this.result);
             }
-            if (_this.mode === 'high') {
-              _this.result = Math.max(_this.result, _this.app.mic.pitch);
+            if (_this.mode === 'high' && _this.app.mic.pitch > _this.result) {
+              _this.result = _this.app.mic.pitch;
+              _this.note = _this.noteFromPitch(_this.result);
             }
             return callback();
           };
         })(this)
       ], (function(_this) {
         return function(err, results) {
-          return done();
+          return setTimeout(function() {
+            return done();
+          }, 2000);
         };
       })(this));
     };
@@ -24290,9 +24305,7 @@ if (typeof JSON !== 'object') {
     };
 
     App.prototype.restart = function(e) {
-      return this.navigate('/', {
-        trans: 'right'
-      });
+      return window.location.reload(true);
     };
 
     function App(params) {
@@ -24376,7 +24389,9 @@ if (typeof JSON !== 'object') {
           return function(params) {
             return _this.Results.active({
               'low': _this.RecordLow.result,
-              'high': _this.RecordHigh.result
+              'high': _this.RecordHigh.result,
+              'low_note': _this.RecordLow.note,
+              'high_note': _this.RecordHigh.note
             });
           };
         })(this),
@@ -24385,9 +24400,6 @@ if (typeof JSON !== 'object') {
         }
       });
       this.footer.html(require('views/intro/footer'));
-      this.navigate('/results', {
-        trans: 'right'
-      });
     }
 
     return App;
@@ -25015,11 +25027,19 @@ module.exports = content;}, "views/intro/results": function(exports, require, mo
     
       __out.push(__sanitize(this.params.high));
     
-      __out.push(' Hz / E8</dd>\n    <dt>Sinu madalaim hääl:</dt> \n    <dd>');
+      __out.push(' Hz / ');
+    
+      __out.push(__sanitize(this.params.high_note));
+    
+      __out.push('</dd>\n    <dt>Sinu madalaim hääl:</dt> \n    <dd>');
     
       __out.push(__sanitize(this.params.low));
     
-      __out.push(' Hz / E8</dd>\n  </dl>\n  <div class="piano">\n    <div class="window">\n    </div>\n  </div>\n</results>\n<aside>\n  <div class="link">Alusta uuesti</div>\n  <div class="button">Saada e-postile</div>\n<aside>\n');
+      __out.push(' Hz / ');
+    
+      __out.push(__sanitize(this.params.low_note));
+    
+      __out.push('</dd>\n  </dl>\n  <div class="piano">\n    <div class="window">\n    </div>\n  </div>\n</results>\n<aside>\n  <div class="link">Alusta uuesti</div>\n  <div class="button">Saada e-postile</div>\n<aside>\n');
     
     }).call(this);
     

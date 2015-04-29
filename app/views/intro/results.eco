@@ -6,9 +6,9 @@
     <dt>Maailma madalaim hääl:</dt> 
     <dd>0,189 Hz / G<sub>-7</sub><br></dd>
     <dt>Sinu kõrgeim hääl:</dt> 
-    <dd><%= @params.high %> Hz / E8</dd>
+    <dd><%= @params.high %> Hz / <%= @params.high_note %></dd>
     <dt>Sinu madalaim hääl:</dt> 
-    <dd><%= @params.low %> Hz / E8</dd>
+    <dd><%= @params.low %> Hz / <%= @params.low_note %></dd>
   </dl>
   <div class="piano">
     <div class="window">

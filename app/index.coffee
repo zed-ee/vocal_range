@@ -26,7 +26,8 @@ class App extends Stage.Global
     @intro.active()
     
   restart: (e) =>
-    @navigate('/', trans: 'right')
+    #@navigate('/', trans: 'right')
+    window.location.reload(true)
     
   constructor: (params)->
     super
@@ -67,9 +68,9 @@ class App extends Stage.Global
       '/play_high': (params) -> @PlayHigh.active(params)
       '/intro2_high': (params) -> @intro2High.active(params)
       '/record_high': (params) -> @RecordHigh.active(params)
-      '/results': (params) => @Results.active( 'low': @RecordLow.result, 'high': @RecordHigh.result)
+      '/results': (params) => @Results.active( 'low': @RecordLow.result, 'high': @RecordHigh.result, 'low_note': @RecordLow.note, 'high_note': @RecordHigh.note)
       '/email_form': (params) -> @EmailForm.active(params)
     @footer.html require('views/intro/footer')
-    @navigate('/results', trans: 'right')
+    #@navigate('/intro2_high', trans: 'right')
        
 module.exports = App
