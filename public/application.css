@@ -125,7 +125,17 @@ body.stage > footer {
   height: 40px;
   line-height: 40px;
 }
-.panel > header h2 {
+.panel.startup > header {
+  background: url("assets/logo.png") no-repeat;
+  z-index: 3;
+  height: 10em;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  background-size: 23em;
+}
+.panel.startup > header h2 {
   margin: 0;
   padding: 0;
   text-align: center;
@@ -133,7 +143,7 @@ body.stage > footer {
   text-shadow: 0 -1px 0 rgba(0,0,0,0.5);
   font-weight: normal;
 }
-.panel > header button {
+.panel.startup > header button {
   position: absolute;
   left: 0;
   top: 0;
@@ -149,7 +159,7 @@ body.stage > footer {
   -webkit-border-radius: 5px;
   border-radius: 5px;
 }
-.panel > header button:active {
+.panel.startup > header button:active {
   -webkit-box-shadow: inset 0 -1px 1px rgba(0,0,0,0.3), inset 0 1px 1px 0 rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.4), inset 0 0 20px rgba(255,255,255,0.2);
 }
 body >header >canvas {

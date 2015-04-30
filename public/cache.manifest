@@ -1,0 +1,40 @@
+CACHE MANIFEST
+# v1.0.0
+CACHE:
+./application.css  
+./application.js  
+./data.js  index.html
+
+./assets/georgia_brown.mp3  
+./assets/georgia_brown.png  
+./assets/logo.png  
+./assets/tim_storms.mp3  
+./assets/tim_storms.png
+
+./libs/circularbuffer.js  
+./libs/effect.js  
+./libs/effects.js  
+./libs/jungle.js  
+./libs/pingpong.js  
+./libs/visualizer.js  
+./libs/waveshaper.js
+
+./libs/visualizer/base.js  
+./libs/visualizer/cameracontroller.js  
+./libs/visualizer/events.js  
+./libs/visualizer/matrix4x4.js  
+./libs/visualizer/shader.js  
+./libs/visualizer/visualizer.js
+
+./public/shaders:
+./shaders/common-vertex.shader  
+./shaders/frequency-fragment.shader  
+./shaders/sonogram-fragment.shader  
+./shaders/sonogram-vertex.shader  
+./shaders/texture-only.shader  
+./shaders/waveform-fragment.shader
+./assets/montserrat.woffW
+
+
+NETWORK:
+https://apps.zed.ee/animal_vision
