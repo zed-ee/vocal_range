@@ -113,7 +113,7 @@ class Mic
 #    $("h1").html(Mic.buf[0]*200)
 #    $("h2").html(ac)
 
-    if ac > 0 && Math.Round(ac) != 16000 
+    if ac > 0 && round(ac) != 16000 
       @pitch = Math.min(@pitch, Math.round(ac)) if @mode == 'low';
       @pitch = Math.max(@pitch, Math.round(ac)) if @mode == 'high';
     
