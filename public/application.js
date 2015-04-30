@@ -24555,7 +24555,7 @@ if (typeof JSON !== 'object') {
         }
         this.waveCanvas.stroke();
       }
-      if (ac > 0 && Math.Round(ac) !== 16000) {
+      if (ac > 0 && round(ac) !== 16000) {
         if (this.mode === 'low') {
           this.pitch = Math.min(this.pitch, Math.round(ac));
         }
