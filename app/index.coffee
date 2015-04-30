@@ -27,7 +27,7 @@ class App extends Stage.Global
     
   restart: (e) =>
     #@navigate('/', trans: 'right')
-    window.location.reload(true)
+    window.location.reload()
     
   constructor: (params)->
     super
