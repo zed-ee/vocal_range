@@ -1,0 +1,8 @@
+<% @start = (@params.low.noteGroup-1) * 10.8 + @params.low.noteIndex % 12 %>
+<% @end = (@params.high.noteGroup-1) * 10.8 + @params.high.noteIndex % 12 %>
+
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="low" width="75em">
+  <rect x="<%= @start %>em" width="<%= @end-@start %>em" height="5em" style="fill:rgba(170,170,170,0.4);" />
+  <circle cy="4em" cx="<%= @start %>em" r="0.7em" style="fill:#F79057;"></circle>
+  <circle cy="4em" cx="<%= @end %>em" r="0.7em" style="fill:#DC611E;"></circle>
+</svg>
