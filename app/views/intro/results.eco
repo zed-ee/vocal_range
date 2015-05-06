@@ -1,21 +1,17 @@
-<h1 class="status">Tulemused:</h1>
+<h1 class="status"><%=app_data.messages[lang].results.results%></h1>
 <results>
   <dl class="">
-    <dt>Maailma madalaim hääl:</dt> 
+    <dt><%=app_data.messages[lang].results.lowest_voice%></dt> 
     <dd>0,189 Hz / G<sub>-7</sub><br></dd>
-    <dt>Maailma kõrgeim hääl:</dt> 
+    <dt><%=app_data.messages[lang].results.highest_voice%></dt> 
     <dd>25087 Hz / G10</dd>
-    <dt>Sinu madalaim hääl:</dt> 
+    <dt><%=app_data.messages[lang].results.your_lowest%></dt> 
     <dd><%= @params.low.result %> Hz / <%= @params.low.note %></dd>
-    <dt>Sinu kõrgeim hääl:</dt> 
+    <dt><%=app_data.messages[lang].results.your_highest%></dt> 
     <dd><%= @params.high.result %> Hz / <%= @params.high.note %></dd>
   </dl>
-  <div class="piano">
-    <div class="window">
-    </div>
-  </div>
 </results>
 <aside>
-  <div class="link">Alusta uuesti</div>
-  <div class="button">Saada e-postile</div>
+  <div class="link"><%=app_data.messages[lang].results.restart%></div>
+  <div class="button"><%=app_data.messages[lang].results.email%></div>
 <aside>

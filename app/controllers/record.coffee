@@ -48,7 +48,7 @@ class Record extends Panel
     super
     $("body > footer")[0].className = if @mode == 'low' then 'step3' else 'step6'
     $(".retries li").removeClass('active');
-    $(".results li").removeClass('active').html("");
+    $(".results li").removeClass('active').html("&nbsp;");
     async.eachSeries([1, 2, 3],(i, cb) =>
       @log(Date(),"retry",1)
       @retry(i, cb)

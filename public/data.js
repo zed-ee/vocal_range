@@ -38,8 +38,22 @@ app_data = {
               low: 'Nüüd proovi, <br>milline on sinu hääle<br><u>madalaim</u> helisagedus',
               high: 'Nüüd proovi, <br>milline on sinu hääle<br><u>kõrgeim</u> helisagedus',
             },
-
-            
+            record: {
+              attempt1:"1. Katse",
+              attempt2:"2. Katse",
+              attempt3:"3. Katse"
+            },
+            results: {
+              results: "Tulemused:",
+              lowest_voice: "Maailma madalaim hääl:",
+              lowest_note: "0,189 Hz / G<sub>-7</sub><br>",
+              highest_voice: "Maailma kõrgeim hääl:",
+              hightest_note: "25087 Hz / G10",
+              your_lowest:"Sinu madalaim hääl:" ,
+              your_highest: "Sinu kõrgeim hääl:",
+              restart:"Alusta uuesti",
+              send: "Saada e-postile"
+            }
         }, 'en': {
             app: {
               restart:'Restart',
@@ -64,6 +78,23 @@ app_data = {
               low: 'Next, find out <br> the <u>lowest</u> frequency<br>of your voice',
               high: 'Next, find out <br>the <u>highest</u> frequency<br>of your voice'
             },
+            record: {
+              attempt1:"1st Attempt",
+              attempt2:"2nd Attempt",
+              attempt3:"3rd Attempt"
+            },            
+            results: {
+              results: "Results:",
+              lowest_voice: "World's lowest vocal note:",
+              lowest_note: "0,189 Hz / G<sub>-7</sub><br>",
+              highest_voice: "World's highest vocal note:",
+              hightest_note: "25087 Hz / G10",
+              your_lowest:"Your lowest note:" ,
+              your_highest: "Your highest note:",
+              restart:"Back to start",
+              email: "Send to e­mail"
+            }
+            
         }
 	}
 }

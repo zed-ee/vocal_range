@@ -1,15 +1,15 @@
 <h1>-Hz</h1>
 <section class="progress">
 <ol class="retries">
-  <li>katse</li>
-  <li>katse</li>
-  <li>katse</li>
+  <li><%=app_data.messages[lang].record.attempt1 %></li>
+  <li><%=app_data.messages[lang].record.attempt2 %></li>
+  <li><%=app_data.messages[lang].record.attempt3 %></li>
 </ol>
 
 <ul class="results">
-  <li></li>
-  <li></li>
-  <li></li>
+  <li>&nbsp;</li>
+  <li>&nbsp;</li>
+  <li>&nbsp;</li>
 </ul>
 
 <ol class="countdown">

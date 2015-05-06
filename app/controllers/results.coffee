@@ -25,7 +25,9 @@ class Results extends Panel
     @html require('views/intro/results')(@)
     @footer.html  require('views/intro/results_footer')(@)
   restart: ->
-     @navigate('/', trans: 'left')
+     #@navigate('/', trans: 'left')
+     window.location.reload()
+
   next: ->
      @navigate('/email_form', trans: 'right')
 module.exports = Results

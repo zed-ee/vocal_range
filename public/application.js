@@ -24071,7 +24071,7 @@ if (typeof JSON !== 'object') {
       Record.__super__.active.apply(this, arguments);
       $("body > footer")[0].className = this.mode === 'low' ? 'step3' : 'step6';
       $(".retries li").removeClass('active');
-      $(".results li").removeClass('active').html("");
+      $(".results li").removeClass('active').html("&nbsp;");
       return async.eachSeries([1, 2, 3], (function(_this) {
         return function(i, cb) {
           _this.log(Date(), "retry", 1);
@@ -24210,9 +24210,7 @@ if (typeof JSON !== 'object') {
     };
 
     Results.prototype.restart = function() {
-      return this.navigate('/', {
-        trans: 'left'
-      });
+      return window.location.reload();
     };
 
     Results.prototype.next = function() {
@@ -24414,6 +24412,9 @@ if (typeof JSON !== 'object') {
         }
       });
       this.footer.html(require('views/intro/footer'));
+      this.navigate('/record_low', {
+        trans: 'right'
+      });
     }
 
     return App;
@@ -24998,7 +24999,19 @@ module.exports = content;}, "views/intro/record": function(exports, require, mod
   }
   (function() {
     (function() {
-      __out.push('<h1>-Hz</h1>\n<section class="progress">\n<ol class="retries">\n  <li>katse</li>\n  <li>katse</li>\n  <li>katse</li>\n</ol>\n\n<ul class="results">\n  <li></li>\n  <li></li>\n  <li></li>\n</ul>\n\n<ol class="countdown">\n  <li>3</li>\n  <li>2</li>\n  <li>1</li>\n</ol>\n</section>\n<section class="timer">\n<div class="radial-timer s-animate">\n  <div class="radial-timer-half"></div>\n  <div class="radial-timer-half"></div>\n</div>\n<div class="counter">10</div>\n</section>');
+      __out.push('<h1>-Hz</h1>\n<section class="progress">\n<ol class="retries">\n  <li>');
+    
+      __out.push(__sanitize(app_data.messages[lang].record.attempt1));
+    
+      __out.push('</li>\n  <li>');
+    
+      __out.push(__sanitize(app_data.messages[lang].record.attempt2));
+    
+      __out.push('</li>\n  <li>');
+    
+      __out.push(__sanitize(app_data.messages[lang].record.attempt3));
+    
+      __out.push('</li>\n</ol>\n\n<ul class="results">\n  <li>&nbsp;</li>\n  <li>&nbsp;</li>\n  <li>&nbsp;</li>\n</ul>\n\n<ol class="countdown">\n  <li>3</li>\n  <li>2</li>\n  <li>1</li>\n</ol>\n</section>\n<section class="timer">\n<div class="radial-timer s-animate">\n  <div class="radial-timer-half"></div>\n  <div class="radial-timer-half"></div>\n</div>\n<div class="counter">10</div>\n</section>');
     
     }).call(this);
     
@@ -25045,7 +25058,23 @@ module.exports = content;}, "views/intro/results": function(exports, require, mo
   }
   (function() {
     (function() {
-      __out.push('<h1 class="status">Tulemused:</h1>\n<results>\n  <dl class="">\n    <dt>Maailma madalaim hääl:</dt> \n    <dd>0,189 Hz / G<sub>-7</sub><br></dd>\n    <dt>Maailma kõrgeim hääl:</dt> \n    <dd>25087 Hz / G10</dd>\n    <dt>Sinu madalaim hääl:</dt> \n    <dd>');
+      __out.push('<h1 class="status">');
+    
+      __out.push(__sanitize(app_data.messages[lang].results.results));
+    
+      __out.push('</h1>\n<results>\n  <dl class="">\n    <dt>');
+    
+      __out.push(__sanitize(app_data.messages[lang].results.lowest_voice));
+    
+      __out.push('</dt> \n    <dd>0,189 Hz / G<sub>-7</sub><br></dd>\n    <dt>');
+    
+      __out.push(__sanitize(app_data.messages[lang].results.highest_voice));
+    
+      __out.push('</dt> \n    <dd>25087 Hz / G10</dd>\n    <dt>');
+    
+      __out.push(__sanitize(app_data.messages[lang].results.your_lowest));
+    
+      __out.push('</dt> \n    <dd>');
     
       __out.push(__sanitize(this.params.low.result));
     
@@ -25053,7 +25082,11 @@ module.exports = content;}, "views/intro/results": function(exports, require, mo
     
       __out.push(__sanitize(this.params.low.note));
     
-      __out.push('</dd>\n    <dt>Sinu kõrgeim hääl:</dt> \n    <dd>');
+      __out.push('</dd>\n    <dt>');
+    
+      __out.push(__sanitize(app_data.messages[lang].results.your_highest));
+    
+      __out.push('</dt> \n    <dd>');
     
       __out.push(__sanitize(this.params.high.result));
     
@@ -25061,7 +25094,15 @@ module.exports = content;}, "views/intro/results": function(exports, require, mo
     
       __out.push(__sanitize(this.params.high.note));
     
-      __out.push('</dd>\n  </dl>\n  <div class="piano">\n    <div class="window">\n    </div>\n  </div>\n</results>\n<aside>\n  <div class="link">Alusta uuesti</div>\n  <div class="button">Saada e-postile</div>\n<aside>\n');
+      __out.push('</dd>\n  </dl>\n</results>\n<aside>\n  <div class="link">');
+    
+      __out.push(__sanitize(app_data.messages[lang].results.restart));
+    
+      __out.push('</div>\n  <div class="button">');
+    
+      __out.push(__sanitize(app_data.messages[lang].results.email));
+    
+      __out.push('</div>\n<aside>\n');
     
     }).call(this);
     
