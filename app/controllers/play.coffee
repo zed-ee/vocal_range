@@ -23,6 +23,7 @@ class PlayLow extends Panel
     
   active: =>
     super
+    $("body > footer")[0].className = if @mode == 'low' then 'step2' else 'step5'
     setTimeout ( =>
       @audio[0].currentTime =0
       @audio[0].play()

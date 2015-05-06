@@ -23,6 +23,13 @@ class Intro extends Panel
     # Calculate currency conversion
     @html require('views/intro/intro')(@)
     
+  active: ->
+    super
+    if @mode == 'low'
+      $("body > footer")[0].className = if @page == 'intro' then 'step1' else 'step2'
+    else
+      $("body > footer")[0].className = if @page == 'intro' then 'step4' else 'step5'
+    
   next: ->
      @navigate(@next_page, trans: 'right')
 module.exports = Intro

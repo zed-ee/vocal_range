@@ -18,11 +18,12 @@ class Results extends Panel
     @params = params
     super
     @render()
+    $("body > footer")[0].className = 'step8'
     
   render: =>
     # Calculate currency conversion
     @html require('views/intro/results')(@)
-    
+    @footer.html  require('views/intro/results_footer')(@)
   restart: ->
      @navigate('/', trans: 'left')
   next: ->

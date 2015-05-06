@@ -8,217 +8,226 @@ body
     &#view1
       margin-top: 40em;
       display:none
-.startup
-  h1
-    font-size: 8em;
-    font-family: "Montserrat";
-    font-weight: bold;
-    text-align: center;
-    margin: 0 auto;
-    margin-top: 0.9em;
-
-  h2
-    font-size: 3em;
-    font-family: "Montserrat";
-    text-align: center;
-    margin: 0 auto;
-    margin-top: 0.6em;
-    margin-bottom: 1.8em;  
-
-.button
-  border-radius: 5px;
-  background-color: #DC611E;
-  box-shadow: 0 0.23em #BA541C;
-  margin-top: 1em;
-  font-family: "Montserrat";
-  font-size: 4em;
-  text-transform: uppercase;
-  width: 5.7em;
-  margin: 0 auto;
-  text-align: center;
-  font-weight: bold;
-  line-height: 2.35em;
-        
-.intro, .intro2
-  h1
-    font-size: 7em;
-    font-family: "Montserrat";
-    font-weight: bold;
-    text-align: center;
-    margin: 0 auto;
-    margin-top: 1.3em;
-    line-height: 1.2em;
-    margin-bottom: 1em;
-        
-        
-.play
-  section
-    margin: 0 auto;
-    width: 66%;
-    display: block;
-    margin-top: 13.5em;
-    font-family: "Montserrat";
-    font-size: 1.8em;
-    line-height: 1.3em;
-
-    img
-      border: 0;
-      float: left;
-      margin: -5.1em 1.6em 0.0em 5.7em;
-      width: 15.7295em;
-  .progress
-    width: 7em;
-    line-height: 0.4em;
-    display: inline-block;
-    background: rgb(0, 137, 123);
-    border-radius: 6px;  
-    display:none
-    
-    .indicator
-      border-radius: 5px;
-      background-color: rgb(255, 255, 255);
-      box-shadow: inset 0.5px 0.866px 3px 0px rgba(0, 0, 0, 0.082);
-      display: inline-block;      
-
-.record
-  h1
-    font-size: 12em;
-    margin: 0 auto;
-    text-align: center;
-    margin-top: 1.2em;
-    margin-bottom: 1em;
-    
-  .progress
-    background: #d67744
-    font-weight: lighter;    
-    float: left;
-    width: 100%;
-    color:#dea88a;
-  
-    .active
-      color:white
-    .retries
-      font-size: 3.5em;
-      margin-left: 0.5em;
-      li
-        float: left;
-        margin-left: 2.9em;        
-        width: 3em;
-        
-    .results
-      font-size: 3.5em;
-      clear: both;
-      list-style-type: none;
-      margin-left: 0.5em;
-
-      li
-        float: left;
-        margin-left: 1em;
-        width: 5em;
-        text-align: center;
-        
-    .countdown
-      font-size: 7em;
-      margin-top: -1.2em;
-      list-style-type: none;
-      float: right;
-      width: 5em;  
-      margin-bottom: 0.68em;
-      li
-        float: left;
-        margin-right: 1em;
-  .timer
-    position: absolute;
-    top: 5em;
-    right: 10em; 
-    display:none;    
-    .counter
-      font-size: 3em;
-      position: absolute;
-      top: 0.7em;
-      left: 0.3em;
-      z-index: 9000;
-      font-weight: lighter;
+article      
+  .startup
+    h1
+      font-size: 8em;
+      font-family: "Montserrat";
+      font-weight: bold;
       text-align: center;
-      width: 2em;      
-      
-.results
-  h1
-    font-size: 7em;
-    width: 14em;
-    margin: 0 auto;
+      margin: 0 auto;
+      margin-top: 0.9em;
+
+    h2
+      font-size: 3em;
+      font-family: "Montserrat";
+      text-align: center;
+      margin: 0 auto;
+      margin-top: 0.6em;
+      margin-bottom: 1.8em;  
+
+  .button
+    border-radius: 5px;
+    background-color: #DC611E;
+    box-shadow: 0 0.23em #BA541C;
     margin-top: 1em;
-  results
-    display: block;
-    margin: 0 8em;
-    color: #000;
-    dl
-      margin: 2em 2em;
-      -webkit-column-count: 2;
-      -webkit-column-gap: 3em;
-      height: 33em;
-      dt
-        font-size: 3.1em;
-        background: #FFF;
-        padding: 0.8em 0 0 1.3em;
-        position: relative;
-        -webkit-column-break-inside: avoid;
-        &:before
-          content: "";
-          position: absolute;
-          width: 0.8em;
-          background: #639;
-          z-index: 2;
-          height: 5.2em;
-          top: 0;
-          left: 0;
-        &:nth-child(1):before
-          background:#ef9a9a
-        &:nth-child(3):before
-          background:#ef5350
-        &:nth-child(5):before
-          background:#f79057
-        &:nth-child(7):before
-          background:#dc611e
-      dd
-        font-size: 5.7em;
-        background: #FFF;
-        margin: 0;
-        padding: 0.14em 0 0 0.6em;
-        -webkit-column-break-inside: avoid;
-        height: 1.6em;
-        &:nth-child(2),&:nth-child(6)
-          &:after
-            content: "";
-            height: 1px;
-            background: #000;
-            display: block;
-            width: 93%;
-            margin-top: 0.36em;
-            margin-left: 0em;
-  
-  aside
-    position: absolute;
-    top: 4em;
-    right: 10em;
-    .link
-      text-transform: uppercase;
-      font-size: 1.2em;
-      text-align: right;
-      background: none;    
-    .button
-      font-size: 1.6em;
-      text-transform: none;
-      font-weight: lighter;
-      width: 11em;
-      margin-top: 2.6em;
-      line-height: 3.2em;
-      border-radius: 0;
-      box-shadow: 0 0.4em #00897B;
-      background: #4db6ac
+    font-family: "Montserrat";
+    font-size: 4em;
+    text-transform: uppercase;
+    width: 5.7em;
+    margin: 0 auto;
+    text-align: center;
+    font-weight: bold;
+    line-height: 2.35em;
+          
+  .intro, .intro2
+    h1
+      font-size: 7em;
+      font-family: "Montserrat";
+      font-weight: bold;
+      text-align: center;
+      margin: 0 auto;
+      margin-top: 1.3em;
+      line-height: 1.2em;
+      margin-bottom: 1em;
+          
+          
+  .play
+    section
+      margin: 0 auto;
+      width: 66%;
+      display: block;
+      margin-top: 13.5em;
+      font-family: "Montserrat";
+      font-size: 1.8em;
+      line-height: 1.3em;
+
+      img
+        border: 0;
+        float: left;
+        margin: -5.1em 1.6em 0.0em 5.7em;
+        width: 15.7295em;
+    .progress
+      width: 7em;
+      line-height: 0.4em;
+      display: inline-block;
+      background: rgb(0, 137, 123);
+      border-radius: 6px;  
       display:none
       
+      .indicator
+        border-radius: 5px;
+        background-color: rgb(255, 255, 255);
+        box-shadow: inset 0.5px 0.866px 3px 0px rgba(0, 0, 0, 0.082);
+        display: inline-block;      
+
+  .record
+    h1
+      font-size: 12em;
+      margin: 0 auto;
+      text-align: center;
+      margin-top: 1.2em;
+      margin-bottom: 1em;
       
+    .progress
+      background: #d67744
+      font-weight: lighter;    
+      float: left;
+      width: 100%;
+      color:#dea88a;
+    
+      .active
+        color:white
+      .retries
+        font-size: 3.5em;
+        margin-left: 0.5em;
+        li
+          float: left;
+          margin-left: 2.9em;        
+          width: 3em;
+          
+      .results
+        font-size: 3.5em;
+        clear: both;
+        list-style-type: none;
+        margin-left: 0.5em;
+
+        li
+          float: left;
+          margin-left: 1em;
+          width: 5em;
+          text-align: center;
+          
+      .countdown
+        font-size: 7em;
+        margin-top: -1.2em;
+        list-style-type: none;
+        float: right;
+        width: 5em;  
+        margin-bottom: 0.68em;
+        li
+          float: left;
+          margin-right: 1em;
+    .timer
+      position: absolute;
+      top: 5em;
+      right: 10em; 
+      display:none;    
+      .counter
+        font-size: 3em;
+        position: absolute;
+        top: 0.7em;
+        left: 0.3em;
+        z-index: 9000;
+        font-weight: lighter;
+        text-align: center;
+        width: 2em;      
+        
+  .results
+    h1
+      font-size: 7em;
+      width: 14em;
+      margin: 0 auto;
+      margin-top: 1em;
+    results
+      display: block;
+      margin: 0 8em;
+      color: #000;
+      dl
+        margin: 2em 2em;
+        -webkit-column-count: 2;
+        -webkit-column-gap: 3em;
+        height: 33em;
+        dt
+          font-size: 3.1em;
+          background: #FFF;
+          padding: 0.8em 0 0 1.3em;
+          position: relative;
+          -webkit-column-break-inside: avoid;
+          &:before
+            content: "";
+            position: absolute;
+            width: 0.8em;
+            background: #639;
+            z-index: 2;
+            height: 5.2em;
+            top: 0;
+            left: 0;
+          &:nth-child(1):before
+            background:#ef9a9a
+          &:nth-child(3):before
+            background:#ef5350
+          &:nth-child(5):before
+            background:#f79057
+          &:nth-child(7):before
+            background:#dc611e
+        dd
+          font-size: 5.7em;
+          background: #FFF;
+          margin: 0;
+          padding: 0.14em 0 0 0.6em;
+          -webkit-column-break-inside: avoid;
+          height: 1.6em;
+          &:nth-child(2),&:nth-child(6)
+            &:after
+              content: "";
+              height: 1px;
+              background: #000;
+              display: block;
+              width: 93%;
+              margin-top: 0.36em;
+              margin-left: 0em;
+    
+    aside
+      position: absolute;
+      top: 4em;
+      right: 10em;
+      .link
+        text-transform: uppercase;
+        font-size: 1.2em;
+        text-align: right;
+        background: none;    
+      .button
+        font-size: 1.6em;
+        text-transform: none;
+        font-weight: lighter;
+        width: 11em;
+        margin-top: 2.6em;
+        line-height: 3.2em;
+        border-radius: 0;
+        box-shadow: 0 0.4em #00897B;
+        background: #4db6ac
+        display:none
+      
+    footer
+      position: relative;
+      /* left: 50%; */
+      bottom: 0;
+      /* right: 0; */
+      height: 5em;
+      z-index: 10;
+      margin: 0 auto;
+      width: 75em;
 footer
   font-family: "Montserrat";
   text-transform: uppercase;
@@ -233,7 +242,6 @@ footer
   .set_lang
     float: right;
     margin: 1.9em 6.7em;
-    display:none
     
   .progress
     display:block;

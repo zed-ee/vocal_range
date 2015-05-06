@@ -1,14 +1,14 @@
 <h1 class="status">Tulemused:</h1>
 <results>
   <dl class="">
-    <dt>Maailma kõrgeim hääl:</dt> 
-    <dd>25087 Hz / G10</dd>
     <dt>Maailma madalaim hääl:</dt> 
     <dd>0,189 Hz / G<sub>-7</sub><br></dd>
-    <dt>Sinu kõrgeim hääl:</dt> 
-    <dd><%= @params.high %> Hz / <%= @params.high_note %></dd>
+    <dt>Maailma kõrgeim hääl:</dt> 
+    <dd>25087 Hz / G10</dd>
     <dt>Sinu madalaim hääl:</dt> 
-    <dd><%= @params.low %> Hz / <%= @params.low_note %></dd>
+    <dd><%= @params.low.result %> Hz / <%= @params.low.note %></dd>
+    <dt>Sinu kõrgeim hääl:</dt> 
+    <dd><%= @params.high.result %> Hz / <%= @params.high.note %></dd>
   </dl>
   <div class="piano">
     <div class="window">

@@ -18,18 +18,16 @@ class App extends Stage.Global
     'tap .restart': 'restart'   
   
   set_lang: (e) =>
-    @log(e)
-    @navigate('/'+window.lang, trans: 'right')
-    window.lang = if window.lang == 'en' then 'et' else 'en'
-    @lang = window.lang
-    @log(window.lang)
-    @intro.active()
+    lang = if window.lang == 'en' then 'et' else 'en'
+    top.location.href= top.location.pathname + "?" + lang
     
   restart: (e) =>
     #@navigate('/', trans: 'right')
     window.location.reload()
     
   constructor: (params)->
+    lang = location.search || "?et"
+    window.lang = lang.substr(1)
     super
     @mic = null
     @spectrum  = $('<canvas id="view1"></canvas>')
@@ -48,7 +46,6 @@ class App extends Stage.Global
     @RecordHigh = new Record('high', @)
     @Results = new Results
     @EmailForm = new  Email
-
     setTimeout(=>
       @mic = new Microphone(@wave)
     ,500)
@@ -68,9 +65,9 @@ class App extends Stage.Global
       '/play_high': (params) -> @PlayHigh.active(params)
       '/intro2_high': (params) -> @intro2High.active(params)
       '/record_high': (params) -> @RecordHigh.active(params)
-      '/results': (params) => @Results.active( 'low': @RecordLow.result, 'high': @RecordHigh.result, 'low_note': @RecordLow.note, 'high_note': @RecordHigh.note)
+      '/results': (params) => @Results.active( 'low': @RecordLow, 'high': @RecordHigh)
       '/email_form': (params) -> @EmailForm.active(params)
     @footer.html require('views/intro/footer')
-    #@navigate('/intro2_high', trans: 'right')
+    #@navigate('/results', trans: 'right')
        
 module.exports = App

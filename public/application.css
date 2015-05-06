@@ -115,7 +115,7 @@ body.stage > header {
   display: block;
 }
 body.stage > article {
-  bottom: 5em;
+  bottom: 0;
 }
 body.stage > footer {
   height: 5em;
@@ -172,7 +172,7 @@ body >header#view1 {
   margin-top: 40em;
   display: none;
 }
-.startup h1 {
+article .startup h1 {
   font-size: 8em;
   font-family: "Montserrat";
   font-weight: bold;
@@ -180,7 +180,7 @@ body >header#view1 {
   margin: 0 auto;
   margin-top: 0.9em;
 }
-.startup h2 {
+article .startup h2 {
   font-size: 3em;
   font-family: "Montserrat";
   text-align: center;
@@ -188,7 +188,7 @@ body >header#view1 {
   margin-top: 0.6em;
   margin-bottom: 1.8em;
 }
-.button {
+article .button {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
@@ -206,8 +206,8 @@ body >header#view1 {
   font-weight: bold;
   line-height: 2.35em;
 }
-.intro h1,
-.intro2 h1 {
+article .intro h1,
+article .intro2 h1 {
   font-size: 7em;
   font-family: "Montserrat";
   font-weight: bold;
@@ -217,7 +217,7 @@ body >header#view1 {
   line-height: 1.2em;
   margin-bottom: 1em;
 }
-.play section {
+article .play section {
   margin: 0 auto;
   width: 66%;
   display: block;
@@ -226,13 +226,13 @@ body >header#view1 {
   font-size: 1.8em;
   line-height: 1.3em;
 }
-.play section img {
+article .play section img {
   border: 0;
   float: left;
   margin: -5.1em 1.6em 0em 5.7em;
   width: 15.7295em;
 }
-.play .progress {
+article .play .progress {
   width: 7em;
   line-height: 0.4em;
   display: inline-block;
@@ -242,7 +242,7 @@ body >header#view1 {
   border-radius: 6px;
   display: none;
 }
-.play .progress .indicator {
+article .play .progress .indicator {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
@@ -252,45 +252,45 @@ body >header#view1 {
   box-shadow: inset 0.5px 0.866px 3px 0px rgba(0,0,0,0.082);
   display: inline-block;
 }
-.record h1 {
+article .record h1 {
   font-size: 12em;
   margin: 0 auto;
   text-align: center;
   margin-top: 1.2em;
   margin-bottom: 1em;
 }
-.record .progress {
+article .record .progress {
   background: #d67744;
   font-weight: lighter;
   float: left;
   width: 100%;
   color: #dea88a;
 }
-.record .progress .active {
+article .record .progress .active {
   color: #fff;
 }
-.record .progress .retries {
+article .record .progress .retries {
   font-size: 3.5em;
   margin-left: 0.5em;
 }
-.record .progress .retries li {
+article .record .progress .retries li {
   float: left;
   margin-left: 2.9em;
   width: 3em;
 }
-.record .progress .results {
+article .record .progress .results {
   font-size: 3.5em;
   clear: both;
   list-style-type: none;
   margin-left: 0.5em;
 }
-.record .progress .results li {
+article .record .progress .results li {
   float: left;
   margin-left: 1em;
   width: 5em;
   text-align: center;
 }
-.record .progress .countdown {
+article .record .progress .countdown {
   font-size: 7em;
   margin-top: -1.2em;
   list-style-type: none;
@@ -298,17 +298,17 @@ body >header#view1 {
   width: 5em;
   margin-bottom: 0.68em;
 }
-.record .progress .countdown li {
+article .record .progress .countdown li {
   float: left;
   margin-right: 1em;
 }
-.record .timer {
+article .record .timer {
   position: absolute;
   top: 5em;
   right: 10em;
   display: none;
 }
-.record .timer .counter {
+article .record .timer .counter {
   font-size: 3em;
   position: absolute;
   top: 0.7em;
@@ -318,31 +318,31 @@ body >header#view1 {
   text-align: center;
   width: 2em;
 }
-.results h1 {
+article .results h1 {
   font-size: 7em;
   width: 14em;
   margin: 0 auto;
   margin-top: 1em;
 }
-.results results {
+article .results results {
   display: block;
   margin: 0 8em;
   color: #000;
 }
-.results results dl {
+article .results results dl {
   margin: 2em 2em;
   -webkit-column-count: 2;
   -webkit-column-gap: 3em;
   height: 33em;
 }
-.results results dl dt {
+article .results results dl dt {
   font-size: 3.1em;
   background: #fff;
   padding: 0.8em 0 0 1.3em;
   position: relative;
   -webkit-column-break-inside: avoid;
 }
-.results results dl dt:before {
+article .results results dl dt:before {
   content: "";
   position: absolute;
   width: 0.8em;
@@ -352,19 +352,19 @@ body >header#view1 {
   top: 0;
   left: 0;
 }
-.results results dl dt:nth-child(1):before {
+article .results results dl dt:nth-child(1):before {
   background: #ef9a9a;
 }
-.results results dl dt:nth-child(3):before {
+article .results results dl dt:nth-child(3):before {
   background: #ef5350;
 }
-.results results dl dt:nth-child(5):before {
+article .results results dl dt:nth-child(5):before {
   background: #f79057;
 }
-.results results dl dt:nth-child(7):before {
+article .results results dl dt:nth-child(7):before {
   background: #dc611e;
 }
-.results results dl dd {
+article .results results dl dd {
   font-size: 5.7em;
   background: #fff;
   margin: 0;
@@ -372,8 +372,8 @@ body >header#view1 {
   -webkit-column-break-inside: avoid;
   height: 1.6em;
 }
-.results results dl dd:nth-child(2):after,
-.results results dl dd:nth-child(6):after {
+article .results results dl dd:nth-child(2):after,
+article .results results dl dd:nth-child(6):after {
   content: "";
   height: 1px;
   background: #000;
@@ -382,18 +382,18 @@ body >header#view1 {
   margin-top: 0.36em;
   margin-left: 0em;
 }
-.results aside {
+article .results aside {
   position: absolute;
   top: 4em;
   right: 10em;
 }
-.results aside .link {
+article .results aside .link {
   text-transform: uppercase;
   font-size: 1.2em;
   text-align: right;
   background: none;
 }
-.results aside .button {
+article .results aside .button {
   font-size: 1.6em;
   text-transform: none;
   font-weight: lighter;
@@ -409,6 +409,16 @@ body >header#view1 {
   background: #4db6ac;
   display: none;
 }
+article .results footer {
+  position: relative;
+/* left: 50%; */
+  bottom: 0;
+/* right: 0; */
+  height: 5em;
+  z-index: 10;
+  margin: 0 auto;
+  width: 75em;
+}
 footer {
   font-family: "Montserrat";
   text-transform: uppercase;
@@ -423,7 +433,6 @@ footer .restart {
 footer .set_lang {
   float: right;
   margin: 1.9em 6.7em;
-  display: none;
 }
 footer .progress {
   display: block;
@@ -510,4 +519,33 @@ footer .progress .page {
     -webkit-transform: rotate(180deg);
     visibility: hidden;
   }
+}
+body >footer.step1 .step1 circle:nth-child(1),
+body >footer.step2 .step2 circle:nth-child(1),
+body >footer.step3 .step3 circle:nth-child(1),
+body >footer.step4 .step4 circle:nth-child(1),
+body >footer.step5 .step5 circle:nth-child(1),
+body >footer.step6 .step6 circle:nth-child(1),
+body >footer.step7 .step7 circle:nth-child(1) {
+  stroke: #fff !important;
+}
+body >footer.step1 .step1 circle:nth-child(2),
+body >footer.step2 .step2 circle:nth-child(2),
+body >footer.step3 .step3 circle:nth-child(2),
+body >footer.step4 .step4 circle:nth-child(2),
+body >footer.step5 .step5 circle:nth-child(2),
+body >footer.step6 .step6 circle:nth-child(2),
+body >footer.step7 .step7 circle:nth-child(2) {
+  fill: #fff !important;
+}
+body >footer.step8 {
+  background: url("assets/piano.png");
+  background-size: 75em;
+  background-repeat: no-repeat;
+  background-position-x: center;
+}
+body >footer.step8 .progress,
+body >footer.step8 .restart,
+body >footer.step8 .set_lang {
+  display: none;
 }

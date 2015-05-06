@@ -1,28 +1,33 @@
-        <div class="restart">Algusesse</div>
-        <div class="set_lang">ENG</div>
+        <div class="restart"><%- app_data.messages[lang].app.restart %></div>
+        <div class="set_lang"><%- app_data.messages[lang].app.next_lang %></div>
+        <!-- circles -->
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="progress">
-          <g class="page intro">
+          <g class="page step1">
             <circle cx="0.6em" cy="2.5em" r="0.5em" style="stroke:#009688;stroke-width: 0.1em;fill:#00796b"></circle>
             <circle cx="0.6em" cy="2.5em" r="0.25em" style="stroke:#009688;fill:#009688"></circle>
           </g>
-          <g class="page intro intro_low">
+          <g class="page step2">
             <circle cx="6.8em" cy="2.5em" r="0.5em" style="stroke:#009688;stroke-width: 0.1em;fill:#00796b"></circle>
             <circle cx="6.8em" cy="2.5em" r="0.25em" style="stroke:#009688;fill:#009688"></circle>
           </g>
-          <g class="page intro intro_low">
+          <g class="page step3">
             <circle cx="13em" cy="2.5em" r="0.5em" style="stroke:#009688;stroke-width: 0.1em;fill:#00796b"></circle>
             <circle cx="13em" cy="2.5em" r="0.25em" style="stroke:#009688;fill:#009688"></circle>
           </g>
-          <g class="page intro intro_low">
+          <g class="page step4">
             <circle cx="19.2em" cy="2.5em" r="0.5em" style="stroke:#009688;stroke-width: 0.1em;fill:#00796b"></circle>
             <circle cx="19.2em" cy="2.5em" r="0.25em" style="stroke:#009688;fill:#009688"></circle>
           </g>
-          <g class="page intro intro_low">
+          <g class="page step5">
             <circle cx="25.4em" cy="2.5em" r="0.5em" style="stroke:#009688;stroke-width: 0.1em;fill:#00796b"></circle>
             <circle cx="25.4em" cy="2.5em" r="0.25em" style="stroke:#009688;fill:#009688"></circle>
           </g>
-          <g class="page intro intro_low">
+          <g class="page step6">
             <circle cx="31.6em" cy="2.5em" r="0.5em" style="stroke:#009688;stroke-width: 0.1em;fill:#00796b"></circle>
             <circle cx="31.6em" cy="2.5em" r="0.25em" style="stroke:#009688;fill:#009688"></circle>
+          </g>
+          <g class="page step7">
+            <circle cx="37.8em" cy="2.5em" r="0.5em" style="stroke:#009688;stroke-width: 0.1em;fill:#00796b"></circle>
+            <circle cx="37.8em" cy="2.5em" r="0.25em" style="stroke:#009688;fill:#009688"></circle>
           </g>
         </svg>

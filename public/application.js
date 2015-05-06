@@ -23913,6 +23913,15 @@ if (typeof JSON !== 'object') {
       return this.html(require('views/intro/intro')(this));
     };
 
+    Intro.prototype.active = function() {
+      Intro.__super__.active.apply(this, arguments);
+      if (this.mode === 'low') {
+        return $("body > footer")[0].className = this.page === 'intro' ? 'step1' : 'step2';
+      } else {
+        return $("body > footer")[0].className = this.page === 'intro' ? 'step4' : 'step5';
+      }
+    };
+
     Intro.prototype.next = function() {
       return this.navigate(this.next_page, {
         trans: 'right'
@@ -23964,6 +23973,7 @@ if (typeof JSON !== 'object') {
 
     PlayLow.prototype.active = function() {
       PlayLow.__super__.active.apply(this, arguments);
+      $("body > footer")[0].className = this.mode === 'low' ? 'step2' : 'step5';
       return setTimeout(((function(_this) {
         return function() {
           _this.audio[0].currentTime = 0;
@@ -24022,11 +24032,10 @@ if (typeof JSON !== 'object') {
     Record.prototype.noteStrings = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
 
     Record.prototype.noteFromPitch = function(frequency) {
-      var note, noteGroup, noteNum;
-      noteNum = 12 * (Math.log(frequency / 440) / Math.log(2));
-      note = Math.round(noteNum) + 69;
-      noteGroup = Math.floor(note / 12) - 1;
-      return this.noteStrings[note % 12] + noteGroup;
+      this.noteNum = 12 * (Math.log(frequency / 440) / Math.log(2));
+      this.noteIndex = Math.round(this.noteNum) + 69;
+      this.noteGroup = Math.floor(this.noteIndex / 12) - 1;
+      return this.note = this.noteStrings[this.noteIndex % 12] + this.noteGroup;
     };
 
     function Record(mode, app) {
@@ -24040,12 +24049,12 @@ if (typeof JSON !== 'object') {
       Record.__super__.constructor.apply(this, arguments);
       this.render();
       if (mode === 'low') {
-        this.result = 4e4;
+        this.result = 106;
       }
       if (mode === 'high') {
-        this.result = -4e4;
+        this.result = 2200;
       }
-      this.note = '';
+      this.noteFromPitch(this.result);
     }
 
     Record.prototype.stoptimer = function(e) {
@@ -24060,6 +24069,7 @@ if (typeof JSON !== 'object') {
       var k;
       k = 1;
       Record.__super__.active.apply(this, arguments);
+      $("body > footer")[0].className = this.mode === 'low' ? 'step3' : 'step6';
       $(".retries li").removeClass('active');
       $(".results li").removeClass('active').html("");
       return async.eachSeries([1, 2, 3], (function(_this) {
@@ -24085,10 +24095,11 @@ if (typeof JSON !== 'object') {
             return setTimeout(function() {
               console.log(Date(), "countdown");
               return callback();
-            }, 2000);
+            }, 1000);
           };
         })(this), (function(_this) {
           return function(callback) {
+            return callback();
             return async.eachSeries([1, 2, 3], function(i, cb) {
               $(".countdown li:nth-child(" + i + ")").addClass('active');
               console.log(Date(), "tick", i);
@@ -24104,7 +24115,7 @@ if (typeof JSON !== 'object') {
           return function(callback) {
             $(".timer").show();
             _this.app.mic.enable($(".record h1"), _this.mode);
-            return async.eachSeries([10, 9, 8, 7, 6, 5, 4, 3, 2, 1], function(i, cb) {
+            return async.eachSeries([9, 8, 7, 6, 5, 4, 3, 2, 1], function(i, cb) {
               $(".timer .counter").html(i);
               console.log(Date(), "tack", i);
               return setTimeout(function() {
@@ -24122,11 +24133,11 @@ if (typeof JSON !== 'object') {
             $(".results li:nth-child(" + k + ")").addClass('active').text(_this.app.mic.pitch + "Hz");
             if (_this.mode === 'low' && _this.app.mic.pitch < _this.result) {
               _this.result = _this.app.mic.pitch;
-              _this.note = _this.noteFromPitch(_this.result);
+              _this.noteFromPitch(_this.result);
             }
             if (_this.mode === 'high' && _this.app.mic.pitch > _this.result) {
               _this.result = _this.app.mic.pitch;
-              _this.note = _this.noteFromPitch(_this.result);
+              _this.noteFromPitch(_this.result);
             }
             return callback();
           };
@@ -24189,11 +24200,13 @@ if (typeof JSON !== 'object') {
       this.log("Results", params);
       this.params = params;
       Results.__super__.active.apply(this, arguments);
-      return this.render();
+      this.render();
+      return $("body > footer")[0].className = 'step8';
     };
 
     Results.prototype.render = function() {
-      return this.html(require('views/intro/results')(this));
+      this.html(require('views/intro/results')(this));
+      return this.footer.html(require('views/intro/results_footer')(this));
     };
 
     Results.prototype.restart = function() {
@@ -24242,6 +24255,11 @@ if (typeof JSON !== 'object') {
 
     Intro.prototype.render = function() {
       return this.html(require('views/intro/index')(this));
+    };
+
+    Intro.prototype.active = function() {
+      Intro.__super__.active.apply(this, arguments);
+      return $("body > footer")[0].className = this.className;
     };
 
     Intro.prototype.next = function() {
@@ -24294,14 +24312,9 @@ if (typeof JSON !== 'object') {
     };
 
     App.prototype.set_lang = function(e) {
-      this.log(e);
-      this.navigate('/' + window.lang, {
-        trans: 'right'
-      });
-      window.lang = window.lang === 'en' ? 'et' : 'en';
-      this.lang = window.lang;
-      this.log(window.lang);
-      return this.intro.active();
+      var lang;
+      lang = window.lang === 'en' ? 'et' : 'en';
+      return top.location.href = top.location.pathname + "?" + lang;
     };
 
     App.prototype.restart = function(e) {
@@ -24311,6 +24324,9 @@ if (typeof JSON !== 'object') {
     function App(params) {
       this.restart = bind(this.restart, this);
       this.set_lang = bind(this.set_lang, this);
+      var lang;
+      lang = location.search || "?et";
+      window.lang = lang.substr(1);
       App.__super__.constructor.apply(this, arguments);
       this.mic = null;
       this.spectrum = $('<canvas id="view1"></canvas>');
@@ -24388,10 +24404,8 @@ if (typeof JSON !== 'object') {
         '/results': (function(_this) {
           return function(params) {
             return _this.Results.active({
-              'low': _this.RecordLow.result,
-              'high': _this.RecordHigh.result,
-              'low_note': _this.RecordLow.note,
-              'high_note': _this.RecordHigh.note
+              'low': _this.RecordLow,
+              'high': _this.RecordHigh
             });
           };
         })(this),
@@ -24756,7 +24770,15 @@ module.exports = content;}, "views/intro/footer": function(exports, require, mod
   }
   (function() {
     (function() {
-      __out.push('        <div class="restart">Algusesse</div>\n        <div class="set_lang">ENG</div>\n        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="progress">\n          <g class="page intro">\n            <circle cx="0.6em" cy="2.5em" r="0.5em" style="stroke:#009688;stroke-width: 0.1em;fill:#00796b"></circle>\n            <circle cx="0.6em" cy="2.5em" r="0.25em" style="stroke:#009688;fill:#009688"></circle>\n          </g>\n          <g class="page intro intro_low">\n            <circle cx="6.8em" cy="2.5em" r="0.5em" style="stroke:#009688;stroke-width: 0.1em;fill:#00796b"></circle>\n            <circle cx="6.8em" cy="2.5em" r="0.25em" style="stroke:#009688;fill:#009688"></circle>\n          </g>\n          <g class="page intro intro_low">\n            <circle cx="13em" cy="2.5em" r="0.5em" style="stroke:#009688;stroke-width: 0.1em;fill:#00796b"></circle>\n            <circle cx="13em" cy="2.5em" r="0.25em" style="stroke:#009688;fill:#009688"></circle>\n          </g>\n          <g class="page intro intro_low">\n            <circle cx="19.2em" cy="2.5em" r="0.5em" style="stroke:#009688;stroke-width: 0.1em;fill:#00796b"></circle>\n            <circle cx="19.2em" cy="2.5em" r="0.25em" style="stroke:#009688;fill:#009688"></circle>\n          </g>\n          <g class="page intro intro_low">\n            <circle cx="25.4em" cy="2.5em" r="0.5em" style="stroke:#009688;stroke-width: 0.1em;fill:#00796b"></circle>\n            <circle cx="25.4em" cy="2.5em" r="0.25em" style="stroke:#009688;fill:#009688"></circle>\n          </g>\n          <g class="page intro intro_low">\n            <circle cx="31.6em" cy="2.5em" r="0.5em" style="stroke:#009688;stroke-width: 0.1em;fill:#00796b"></circle>\n            <circle cx="31.6em" cy="2.5em" r="0.25em" style="stroke:#009688;fill:#009688"></circle>\n          </g>\n        </svg>\n');
+      __out.push('        <div class="restart">');
+    
+      __out.push(app_data.messages[lang].app.restart);
+    
+      __out.push('</div>\n        <div class="set_lang">');
+    
+      __out.push(app_data.messages[lang].app.next_lang);
+    
+      __out.push('</div>\n        <!-- circles -->\n        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="progress">\n          <g class="page step1">\n            <circle cx="0.6em" cy="2.5em" r="0.5em" style="stroke:#009688;stroke-width: 0.1em;fill:#00796b"></circle>\n            <circle cx="0.6em" cy="2.5em" r="0.25em" style="stroke:#009688;fill:#009688"></circle>\n          </g>\n          <g class="page step2">\n            <circle cx="6.8em" cy="2.5em" r="0.5em" style="stroke:#009688;stroke-width: 0.1em;fill:#00796b"></circle>\n            <circle cx="6.8em" cy="2.5em" r="0.25em" style="stroke:#009688;fill:#009688"></circle>\n          </g>\n          <g class="page step3">\n            <circle cx="13em" cy="2.5em" r="0.5em" style="stroke:#009688;stroke-width: 0.1em;fill:#00796b"></circle>\n            <circle cx="13em" cy="2.5em" r="0.25em" style="stroke:#009688;fill:#009688"></circle>\n          </g>\n          <g class="page step4">\n            <circle cx="19.2em" cy="2.5em" r="0.5em" style="stroke:#009688;stroke-width: 0.1em;fill:#00796b"></circle>\n            <circle cx="19.2em" cy="2.5em" r="0.25em" style="stroke:#009688;fill:#009688"></circle>\n          </g>\n          <g class="page step5">\n            <circle cx="25.4em" cy="2.5em" r="0.5em" style="stroke:#009688;stroke-width: 0.1em;fill:#00796b"></circle>\n            <circle cx="25.4em" cy="2.5em" r="0.25em" style="stroke:#009688;fill:#009688"></circle>\n          </g>\n          <g class="page step6">\n            <circle cx="31.6em" cy="2.5em" r="0.5em" style="stroke:#009688;stroke-width: 0.1em;fill:#00796b"></circle>\n            <circle cx="31.6em" cy="2.5em" r="0.25em" style="stroke:#009688;fill:#009688"></circle>\n          </g>\n          <g class="page step7">\n            <circle cx="37.8em" cy="2.5em" r="0.5em" style="stroke:#009688;stroke-width: 0.1em;fill:#00796b"></circle>\n            <circle cx="37.8em" cy="2.5em" r="0.25em" style="stroke:#009688;fill:#009688"></circle>\n          </g>\n        </svg>\n');
     
     }).call(this);
     
@@ -25023,23 +25045,92 @@ module.exports = content;}, "views/intro/results": function(exports, require, mo
   }
   (function() {
     (function() {
-      __out.push('<h1 class="status">Tulemused:</h1>\n<results>\n  <dl class="">\n    <dt>Maailma kõrgeim hääl:</dt> \n    <dd>25087 Hz / G10</dd>\n    <dt>Maailma madalaim hääl:</dt> \n    <dd>0,189 Hz / G<sub>-7</sub><br></dd>\n    <dt>Sinu kõrgeim hääl:</dt> \n    <dd>');
+      __out.push('<h1 class="status">Tulemused:</h1>\n<results>\n  <dl class="">\n    <dt>Maailma madalaim hääl:</dt> \n    <dd>0,189 Hz / G<sub>-7</sub><br></dd>\n    <dt>Maailma kõrgeim hääl:</dt> \n    <dd>25087 Hz / G10</dd>\n    <dt>Sinu madalaim hääl:</dt> \n    <dd>');
     
-      __out.push(__sanitize(this.params.high));
-    
-      __out.push(' Hz / ');
-    
-      __out.push(__sanitize(this.params.high_note));
-    
-      __out.push('</dd>\n    <dt>Sinu madalaim hääl:</dt> \n    <dd>');
-    
-      __out.push(__sanitize(this.params.low));
+      __out.push(__sanitize(this.params.low.result));
     
       __out.push(' Hz / ');
     
-      __out.push(__sanitize(this.params.low_note));
+      __out.push(__sanitize(this.params.low.note));
+    
+      __out.push('</dd>\n    <dt>Sinu kõrgeim hääl:</dt> \n    <dd>');
+    
+      __out.push(__sanitize(this.params.high.result));
+    
+      __out.push(' Hz / ');
+    
+      __out.push(__sanitize(this.params.high.note));
     
       __out.push('</dd>\n  </dl>\n  <div class="piano">\n    <div class="window">\n    </div>\n  </div>\n</results>\n<aside>\n  <div class="link">Alusta uuesti</div>\n  <div class="button">Saada e-postile</div>\n<aside>\n');
+    
+    }).call(this);
+    
+  }).call(__obj);
+  __obj.safe = __objSafe, __obj.escape = __escape;
+  return __out.join('');
+};
+module.exports = content;}, "views/intro/results_footer": function(exports, require, module) {var content = function(__obj) {
+  if (!__obj) __obj = {};
+  var __out = [], __capture = function(callback) {
+    var out = __out, result;
+    __out = [];
+    callback.call(this);
+    result = __out.join('');
+    __out = out;
+    return __safe(result);
+  }, __sanitize = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else if (typeof value !== 'undefined' && value != null) {
+      return __escape(value);
+    } else {
+      return '';
+    }
+  }, __safe, __objSafe = __obj.safe, __escape = __obj.escape;
+  __safe = __obj.safe = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else {
+      if (!(typeof value !== 'undefined' && value != null)) value = '';
+      var result = new String(value);
+      result.ecoSafe = true;
+      return result;
+    }
+  };
+  if (!__escape) {
+    __escape = __obj.escape = function(value) {
+      return ('' + value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    };
+  }
+  (function() {
+    (function() {
+      this.start = (this.params.low.noteGroup - 1) * 10.8 + this.params.low.noteIndex % 12;
+    
+      __out.push('\n');
+    
+      this.end = (this.params.high.noteGroup - 1) * 10.8 + this.params.high.noteIndex % 12;
+    
+      __out.push('\n\n<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="low" width="75em">\n  <rect x="');
+    
+      __out.push(__sanitize(this.start));
+    
+      __out.push('em" width="');
+    
+      __out.push(__sanitize(this.end - this.start));
+    
+      __out.push('em" height="5em" style="fill:rgba(170,170,170,0.4);" />\n  <circle cy="4em" cx="');
+    
+      __out.push(__sanitize(this.start));
+    
+      __out.push('em" r="0.7em" style="fill:#F79057;"></circle>\n  <circle cy="4em" cx="');
+    
+      __out.push(__sanitize(this.end));
+    
+      __out.push('em" r="0.7em" style="fill:#DC611E;"></circle>\n</svg>\n');
     
     }).call(this);
     

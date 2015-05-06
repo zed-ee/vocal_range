@@ -18,6 +18,9 @@ class Intro extends Panel
   render: =>
     # Calculate currency conversion
     @html require('views/intro/index')(@)
+  active: ->
+    super
+    $("body > footer")[0].className = @className
     
   next: ->
      @navigate('/intro_low', trans: 'right')

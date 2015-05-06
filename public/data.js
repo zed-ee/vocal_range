@@ -15,6 +15,10 @@ app_data = {
     },
     messages: {
         et: {
+            app: {
+              restart:'Algusesse',
+              next_lang:'ENG'
+            },
             index: {
               button:'Alusta',
               h1: 'Testi oma<br>hääleulatust',
@@ -31,19 +35,34 @@ app_data = {
             },
             intro2: {
               button:'Edasi',
-              low: 'Nüüd proovi, <br>milline on sinu hääle<br>madalaim helisagedus',
-              high: 'Nüüd proovi, <br>milline on sinu hääle<br>kõrgeim helisagedus',
+              low: 'Nüüd proovi, <br>milline on sinu hääle<br><u>madalaim</u> helisagedus',
+              high: 'Nüüd proovi, <br>milline on sinu hääle<br><u>kõrgeim</u> helisagedus',
             },
-            record: {
-            },
-            results: {
-            }
+
             
         }, 'en': {
-            intro: {
+            app: {
+              restart:'Restart',
+              next_lang:'EST'
+            },
+            index: {
               button:'Start',
-              h1: 'Test your<br>vocal range',
-              h2: 'Milline on sinu kõrgeim ja <br> madalaim helisagedus ja noot?',
+              h1: 'Find your<br>vocal range',
+              h2: 'How low or <br> how high can you go?',
+            },
+            intro: {
+              button:'Next',
+              low: 'First, you are going <br> to hear the world\'s deepest <br>voice made by a man',
+              high: 'Now listen to <br> the world\'s highest voice',
+            },
+            play: {
+              low: 'The world\'s lowest voice<br>Tim Storms, United States od America<br>Lowest frequency: 0,189 Hz<br>Note: G<sub>­7</sub><br>',
+              high: 'The world\'s highest voice<br>Georgia Brown, Brazil<br>Highest frequency: 25 087,7 Hz<br>Note: G10',
+            },
+            intro2: {
+              button:'Edasi',
+              low: 'Next, find out <br> the <u>lowest</u> frequency<br>of your voice',
+              high: 'Next, find out <br>the <u>highest</u> frequency<br>of your voice'
             },
         }
 	}

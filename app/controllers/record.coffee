@@ -17,12 +17,12 @@ class Record extends Panel
   noteStrings: ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
     
   noteFromPitch: (frequency) ->
-    noteNum = 12 * (Math.log(frequency / 440) / Math.log(2))
-    note = Math.round(noteNum) + 69
+    @noteNum = 12 * (Math.log(frequency / 440) / Math.log(2))
+    @noteIndex = Math.round(@noteNum) + 69
     
-    noteGroup = Math.floor(note/12)-1;
+    @noteGroup = Math.floor(@noteIndex/12)-1;
  
-    return @noteStrings[note % 12] + noteGroup
+    @note = @noteStrings[@noteIndex % 12] + @noteGroup
     
 
   constructor: (mode, app)->
@@ -31,9 +31,9 @@ class Record extends Panel
     @className = @mode + ' record'
     super
     @render()
-    @result = 4e4 if mode == 'low'
-    @result = -4e4 if mode == 'high'
-    @note = ''
+    @result = 106 if mode == 'low'
+    @result = 2200 if mode == 'high'
+    @noteFromPitch(@result)
     
   stoptimer: (e) ->
     e.currentTarget.style.webkitAnimationPlayState = "paused";
@@ -46,6 +46,7 @@ class Record extends Panel
     #reset
     k = 1
     super
+    $("body > footer")[0].className = if @mode == 'low' then 'step3' else 'step6'
     $(".retries li").removeClass('active');
     $(".results li").removeClass('active').html("");
     async.eachSeries([1, 2, 3],(i, cb) =>
@@ -67,10 +68,10 @@ class Record extends Panel
         setTimeout( ->
             console.log(Date(),"countdown")
             callback();
-          ,2000)
-      ,
+          ,1000)
       # countdown
-      (callback) =>
+      ,(callback) =>
+        return callback()
         async.eachSeries([1, 2, 3]
           ,(i, cb) ->
             $(".countdown li:nth-child("+i+")").addClass('active');
@@ -86,7 +87,7 @@ class Record extends Panel
       ,(callback) =>
           $(".timer").show()
           @app.mic.enable($(".record h1"), @mode);
-          async.eachSeries([10..1]
+          async.eachSeries([9..1]
             ,(i, cb) ->
               $(".timer .counter").html(i);
               console.log(Date(), "tack",i )
@@ -104,10 +105,10 @@ class Record extends Panel
           $(".results li:nth-child("+k+")").addClass('active').text(@app.mic.pitch + "Hz");
           if @mode == 'low' &&  @app.mic.pitch < @result
             @result = @app.mic.pitch
-            @note = @noteFromPitch(@result)
+            @noteFromPitch(@result)
           if @mode == 'high' &&  @app.mic.pitch > @result
             @result = @app.mic.pitch
-            @note = @noteFromPitch(@result)
+            @noteFromPitch(@result)
     
           callback()
     
