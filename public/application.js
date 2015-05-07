@@ -24412,9 +24412,6 @@ if (typeof JSON !== 'object') {
         }
       });
       this.footer.html(require('views/intro/footer'));
-      this.navigate('/record_low', {
-        trans: 'right'
-      });
     }
 
     return App;

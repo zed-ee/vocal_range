@@ -26,8 +26,8 @@ app_data = {
             },
             intro: {
               button:'Edasi',
-              low: 'Esmalt kuuled <br>maailma madalaimat <br><u>inimese</u> häälsagedust',
-              high: 'Nüüd kuuled <br>maailma kõrgeimat <br><u>inimese</u> häälsagedust',
+              low: 'Esmalt kuuled <br>maailma <u>madalaimat</u> <br>inimese häälsagedust',
+              high: 'Nüüd kuuled <br>maailma <u>kõrgeimat</u> <br>inimese häälsagedust',
             },
             play: {
               low: 'Maailma madalaim hääl<br>Tim Storms, Ameerika Ühendriigid<br>Madalaim sagedus: 0,189 Hz<br>Noot: G<sub>-7</sub><br>',
