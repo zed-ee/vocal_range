@@ -24146,7 +24146,7 @@ if (typeof JSON !== 'object') {
         return function(err, results) {
           return setTimeout(function() {
             return done();
-          }, 2000);
+          }, 3000);
         };
       })(this));
     };
@@ -24567,7 +24567,7 @@ if (typeof JSON !== 'object') {
         }
         this.waveCanvas.stroke();
       }
-      if (ac > 0 && Math.round(ac) !== 16000) {
+      if (ac > 99 && Math.round(ac) !== 16000) {
         if (this.mode === 'low') {
           this.pitch = Math.min(this.pitch, Math.round(ac));
         }

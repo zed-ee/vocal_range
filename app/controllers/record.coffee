@@ -117,7 +117,7 @@ class Record extends Panel
       #@next()
       setTimeout( ->
         done();
-      ,2000)
+      ,3000)
     )
     
   next: =>
