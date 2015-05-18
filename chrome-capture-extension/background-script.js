@@ -1,41 +1,34 @@
-// this content-script plays role of medium to publish/subscribe messages from webpage to the background script
+// this background script is used to invoke desktopCapture API
+// to capture screen-MediaStream.
 
-// this object is used to make sure our extension isn't conflicted with irrelevant messages!
-var rtcmulticonnectionMessages = {
-    'are-you-there': true,
-    'get-sourceId': true
-};
+var session = ['tab'];
 
-// this port connects with background script
-var port = chrome.runtime.connect();
+chrome.runtime.onConnect.addListener(function(port) {
+    port.onMessage.addListener(portOnMessageHanlder);
 
-// if background script sent a message
-port.onMessage.addListener(function(message) {
-    // get message from background script and forward to the webpage
-    window.postMessage(message, '*');
-});
+    // this one is called for each message from "content-script.js"
 
-// this event handler watches for messages sent from the webpage
-// it receives those messages and forwards to background script
-window.addEventListener('message', function(event) {
-    // if invalid source
-    if (event.source != window)
-        return;
-
-    // it is 3rd party message
-    if (!rtcmulticonnectionMessages[event.data]) return;
-
-    // if browser is asking whether extension is available
-    if (event.data == 'are-you-there') {
-        return window.postMessage('zz_rtcmulticonnection-extension-loaded', '*');
+    function portOnMessageHanlder(message) {
+        if (message == 'get-sourceId') {
+            chrome.desktopCapture.chooseDesktopMedia(session, port.sender.tab, onAccessApproved);
+        }
     }
 
-    // if it is something that need to be shared with background script
-    if (event.data == 'get-sourceId') {
-        // forward message to background script
-        port.postMessage(event.data);
+    // on getting sourceId
+    // "sourceId" will be empty if permission is denied.
+
+    function onAccessApproved(sourceId) {
+        console.log('sourceId', sourceId);
+
+        // if "cancel" button is clicked
+        if (!sourceId || !sourceId.length) {
+            return port.postMessage('PermissionDeniedError');
+        }
+
+        // "ok" button is clicked; share "sourceId" with the
+        // content-script which will forward it to the webpage
+        port.postMessage({
+            sourceId: sourceId
+        });
     }
 });
-
-// inform browser that you're available!
-window.postMessage('zz_rtcmulticonnection-extension-loaded', '*');
