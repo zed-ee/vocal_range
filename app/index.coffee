@@ -66,8 +66,9 @@ class App extends Stage.Global
       '/intro2_high': (params) -> @intro2High.active(params)
       '/record_high': (params) -> @RecordHigh.active(params)
       '/results': (params) => @Results.active( 'low': @RecordLow, 'high': @RecordHigh)
-      '/email_form': (params) -> @EmailForm.active(params)
+      '/email': (params) -> @EmailForm.active({})
+      '/email/sent': (params) -> @EmailForm.active({sent:1})
     @footer.html require('views/intro/footer')
-    #@navigate('/record_low', trans: 'right')
+    @navigate('/results', trans: 'right')
        
 module.exports = App

@@ -23850,24 +23850,36 @@ if (typeof JSON !== 'object') {
   IntroHigh = (function(superClass) {
     extend(IntroHigh, superClass);
 
-    IntroHigh.prototype.className = 'intro_low';
+    IntroHigh.prototype.className = 'email';
 
     IntroHigh.prototype.events = {
       'click .button': 'next'
     };
 
     function IntroHigh() {
+      this.active = bind(this.active, this);
       this.render = bind(this.render, this);
       IntroHigh.__super__.constructor.apply(this, arguments);
       this.render();
     }
 
-    IntroHigh.prototype.render = function() {
-      return this.html(require('views/intro/email_form')(this));
+    IntroHigh.prototype.render = function(sent) {
+      if (sent) {
+        return this.html(require('views/intro/email_sent')(this));
+      } else {
+        return this.html(require('views/intro/email_form')(this));
+      }
+    };
+
+    IntroHigh.prototype.active = function(params) {
+      this.log("active", params);
+      IntroHigh.__super__.active.apply(this, arguments);
+      $("body > footer")[0].className = 'step9';
+      return this.render(params.sent);
     };
 
     IntroHigh.prototype.next = function() {
-      return this.navigate('/email_sent', {
+      return this.navigate('/email', "sent", {
         trans: 'left'
       });
     };
@@ -24206,7 +24218,30 @@ if (typeof JSON !== 'object') {
 
     Results.prototype.render = function() {
       this.html(require('views/intro/results')(this));
-      return this.footer.html(require('views/intro/results_footer')(this));
+      this.footer.html(require('views/intro/results_footer')(this));
+      return getScreenId((function(_this) {
+        return function(error, sourceId, screen_constraints) {
+          _this.log("getScreenId", error, sourceId, screen_constraints);
+          screen_constraints = {
+            video: {
+              mandatory: {
+                chromeMediaSource: 'desktop',
+                maxWidth: 1920,
+                maxHeight: 1080,
+                minAspectRatio: 1.77
+              }
+            }
+          };
+          screen_constraints.video.mandatory.chromeMediaSource = 'desktop';
+          screen_constraints.video.mandatory.chromeMediaSourceId = sourceId;
+          navigator.getUserMedia = navigator.mozGetUserMedia || navigator.webkitGetUserMedia;
+          return navigator.getUserMedia(screen_constraints, function(stream) {
+            return $('video')[0].src = URL.createObjectURL(stream);
+          }, function(error) {
+            return console.error(error);
+          });
+        };
+      })(this));
     };
 
     Results.prototype.restart = function() {
@@ -24214,7 +24249,7 @@ if (typeof JSON !== 'object') {
     };
 
     Results.prototype.next = function() {
-      return this.navigate('/email_form', {
+      return this.navigate('/email', {
         trans: 'right'
       });
     };
@@ -24407,11 +24442,19 @@ if (typeof JSON !== 'object') {
             });
           };
         })(this),
-        '/email_form': function(params) {
-          return this.EmailForm.active(params);
+        '/email': function(params) {
+          return this.EmailForm.active({});
+        },
+        '/email/sent': function(params) {
+          return this.EmailForm.active({
+            sent: 1
+          });
         }
       });
       this.footer.html(require('views/intro/footer'));
+      this.navigate('/results', {
+        trans: 'right'
+      });
     }
 
     return App;
@@ -24674,7 +24717,19 @@ if (typeof JSON !== 'object') {
   }
   (function() {
     (function() {
-      __out.push('<h1 class="status">Record</h1>\n<section>\n<div class="button">Edasi</div>\n</section>');
+      __out.push('<h1 class="status">');
+    
+      __out.push(__sanitize(app_data.messages[lang].email.email));
+    
+      __out.push('</h1>\n<section>\n<input type="text" placehoder="');
+    
+      __out.push(__sanitize(app_data.messages[lang].email.example));
+    
+      __out.push('">\n<div class="button">');
+    
+      __out.push(__sanitize(app_data.messages[lang].email.button));
+    
+      __out.push('</div>\n</section>');
     
     }).call(this);
     
@@ -25097,9 +25152,9 @@ module.exports = content;}, "views/intro/results": function(exports, require, mo
     
       __out.push('</div>\n  <div class="button">');
     
-      __out.push(__sanitize(app_data.messages[lang].results.email));
+      __out.push(__sanitize(app_data.messages[lang].results.send));
     
-      __out.push('</div>\n<aside>\n');
+      __out.push('</div>\n<aside>\n<video></video>\n');
     
     }).call(this);
     

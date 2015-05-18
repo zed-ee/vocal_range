@@ -3,7 +3,7 @@ Spine            = require('spine')
 
 class IntroHigh extends Panel
   className:
-    'intro_low'
+    'email'
     
   events:
     'click .button': 'next'   
@@ -12,10 +12,19 @@ class IntroHigh extends Panel
     super
     @render()
   
-  render: =>
+  render: (sent) =>
     # Calculate currency conversion
-    @html require('views/intro/email_form')(@)
+    if sent
+      @html require('views/intro/email_sent')(@)
+    else
+      @html require('views/intro/email_form')(@)
+    
+  active: (params) =>
+    @log "active", params
+    super
+    $("body > footer")[0].className = 'step9'
+    @render(params.sent)
     
   next: ->
-     @navigate('/email_sent', trans: 'left')
+     @navigate('/email', "sent" ,trans: 'left')
 module.exports = IntroHigh

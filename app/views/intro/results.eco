@@ -13,5 +13,6 @@
 </results>
 <aside>
   <div class="link"><%=app_data.messages[lang].results.restart%></div>
-  <div class="button"><%=app_data.messages[lang].results.email%></div>
+  <div class="button"><%=app_data.messages[lang].results.send%></div>
 <aside>
+<video></video>

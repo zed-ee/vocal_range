@@ -38,6 +38,11 @@ app_data = {
               low: 'Nüüd proovi, <br>milline on sinu hääle<br><u>madalaim</u> helisagedus',
               high: 'Nüüd proovi, <br>milline on sinu hääle<br><u>kõrgeim</u> helisagedus',
             },
+            email: {
+              button:'Saada',
+              email: 'E-post',
+              example: 'nimi.perenimi@aadress.ee',
+            },
             record: {
               attempt1:"1. Katse",
               attempt2:"2. Katse",
@@ -93,8 +98,13 @@ app_data = {
               your_highest: "Your highest note:",
               restart:"Back to start",
               email: "Send to e­mail"
-            }
-            
+            },
+             email: {
+              button:'Send',
+              email: 'E-mail',
+              example: 'name@example.com',
+            },
+           
         }
 	}
 }
