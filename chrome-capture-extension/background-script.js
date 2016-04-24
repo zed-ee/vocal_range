@@ -4,6 +4,7 @@
 var session = ['tab'];
 
 chrome.runtime.onConnect.addListener(function(port) {
+  /*
     port.onMessage.addListener(portOnMessageHanlder);
 
     // this one is called for each message from "content-script.js"
@@ -31,4 +32,5 @@ chrome.runtime.onConnect.addListener(function(port) {
             sourceId: sourceId
         });
     }
+    */
 });

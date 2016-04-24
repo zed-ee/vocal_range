@@ -2,10 +2,9 @@
 
 // this object is used to make sure our extension isn't conflicted with irrelevant messages!
 var rtcmulticonnectionMessages = {
-    'are-you-there': true,
-    'get-sourceId': true
+    'screenshot': true
 };
-
+/*
 // this port connects with background script
 var port = chrome.runtime.connect();
 
@@ -14,7 +13,7 @@ port.onMessage.addListener(function(message) {
     // get message from background script and forward to the webpage
     window.postMessage(message, '*');
 });
-
+*/
 // this event handler watches for messages sent from the webpage
 // it receives those messages and forwards to background script
 window.addEventListener('message', function(event) {
@@ -26,15 +25,20 @@ window.addEventListener('message', function(event) {
     if (!rtcmulticonnectionMessages[event.data]) return;
 
     // if browser is asking whether extension is available
-    if (event.data == 'are-you-there') {
-        return window.postMessage('zz_rtcmulticonnection-extension-loaded', '*');
+    if (event.data == 'screenshot') {
+      chrome.tabCapture.capture({
+         video: true,
+         audio:false,
+         videoConstraints: {
+             mandatory: {
+              chromeMediaSource: 'tab'
+          }
+         }
+      }, function (stream) {
+        
+      })
     }
 
-    // if it is something that need to be shared with background script
-    if (event.data == 'get-sourceId') {
-        // forward message to background script
-        port.postMessage(event.data);
-    }
 });
 
 // inform browser that you're available!

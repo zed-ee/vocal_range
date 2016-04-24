@@ -19,37 +19,18 @@ class Results extends Panel
     super
     @render()
     $("body > footer")[0].className = 'step8'
+    window.addEventListener('message',  (event) =>
+      @log "back", event.data
+    );    
+    $("html").attr("extensionCalled",1);
     
   render: =>
     # Calculate currency conversion
     @html require('views/intro/results')(@)
     @footer.html  require('views/intro/results_footer')(@)
-    getScreenId( (error, sourceId, screen_constraints) =>
-        @log "getScreenId", error, sourceId, screen_constraints
-        # error    == null || 'permission-denied' || 'not-installed' || 'installed-disabled' || 'not-chrome'
-        # sourceId == null || 'string' || 'firefox'
+    window.postMessage('screenshot', '*');
+    window.postMessage('get-sourceId', '*');
 
-        screen_constraints = {
-            video: {
-                mandatory: {
-                    chromeMediaSource: 'tab',
-                    maxWidth: 1920,
-                    maxHeight: 1080,
-                    minAspectRatio: 1.77
-                }
-            }
-        }
-        
-        screen_constraints.video.mandatory.chromeMediaSource = 'tab';
-        screen_constraints.video.mandatory.chromeMediaSourceId = sourceId;
-            
-        navigator.getUserMedia = navigator.mozGetUserMedia || navigator.webkitGetUserMedia;
-        navigator.getUserMedia(screen_constraints, (stream) ->
-           $('video')[0].src = URL.createObjectURL(stream);
-        ,  (error) ->
-            console.error(error);
-        );
-    );
     
   restart: ->
      #@navigate('/', trans: 'left')
